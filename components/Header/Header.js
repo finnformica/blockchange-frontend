@@ -22,32 +22,24 @@ const Header = () => {
   const pages = ["View", "Create", "FAQs", "About"];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <Box>
-      <AppBar position="static" color="secondary">
+      <AppBar position="static" color="primary">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
               variant="h5"
               noWrap
-              component="a"
+              component={Link}
               href="/"
               sx={{
                 mr: 2,
@@ -65,7 +57,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
-                aria-label="account of current user"
+                aria-label="menu icon"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
@@ -107,8 +99,8 @@ const Header = () => {
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
+              component={Link}
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
