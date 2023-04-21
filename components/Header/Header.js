@@ -10,9 +10,12 @@ import {
   Container,
   Menu,
   MenuItem,
+  Link,
 } from "@mui/material";
+
 import { FaHands } from "react-icons/fa";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+
 import Image from "next/image";
 
 const Header = () => {
@@ -89,7 +92,12 @@ const Header = () => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href={`/${page.toLowerCase()}`}
+                  >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
@@ -121,6 +129,8 @@ const Header = () => {
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
+                  variant="a"
+                  href={`/${page.toLowerCase()}`}
                 >
                   {page}
                 </Button>
