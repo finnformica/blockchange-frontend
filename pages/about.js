@@ -1,9 +1,11 @@
 import { Typography, Container } from "@mui/material";
 
-export default function Home() {
+const About = () => {
   return (
     <Container maxWidth="lg">
-      <Typography variant="h1">Home</Typography>
+      <Typography variant="h1">About</Typography>
     </Container>
   );
-}
+};
+
+export default About;
