@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   AppBar,
@@ -18,10 +18,34 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 
 import Image from "next/image";
 
+import { useWeb3React } from "@web3-react/core";
+import { InjectedConnector } from "@web3-react/injected-connector";
+
+const pages = ["View", "Create", "FAQs", "About"];
+
 const Header = () => {
-  const pages = ["View", "Create", "FAQs", "About"];
+  const [hasMetamask, setHasMetamask] = useState(false);
+  const [connected, setConnected] = useState(false);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
+
+  const { activate, active, library: provider } = useWeb3React();
+  const ethereum = new InjectedConnector();
+
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      setHasMetamask(true);
+    }
+  });
+
+  async function connect() {
+    try {
+      await activate(ethereum);
+      setConnected(true);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -130,33 +154,44 @@ const Header = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Button
-                variant="contained"
-                color={"error"}
-                sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1 }}
-                startIcon={
+              {hasMetamask ? (
+                <Button
+                  variant="contained"
+                  color={connected ? "success" : "error"}
+                  sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1 }}
+                  startIcon={
+                    <Image
+                      src="/metamask.svg"
+                      alt="Metamask Logo"
+                      width={20}
+                      height={20}
+                    />
+                  }
+                  onClick={() => connect()}
+                >
+                  Connect{connected ? "ed" : ""}
+                </Button>
+              ) : (
+                "Please install Metamask"
+              )}
+
+              {hasMetamask ? (
+                <Button
+                  variant="contained"
+                  color={connected ? "success" : "error"}
+                  sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}
+                  onClick={() => connect()}
+                >
                   <Image
                     src="/metamask.svg"
                     alt="Metamask Logo"
                     width={20}
                     height={20}
                   />
-                }
-              >
-                Connect
-              </Button>
-              <Button
-                variant="contained"
-                color={"error"}
-                sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}
-              >
-                <Image
-                  src="/metamask.svg"
-                  alt="Metamask Logo"
-                  width={20}
-                  height={20}
-                />
-              </Button>
+                </Button>
+              ) : (
+                "Please install Metamask"
+              )}
             </Box>
           </Toolbar>
         </Container>
