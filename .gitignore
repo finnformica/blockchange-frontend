@@ -35,3 +35,6 @@ yarn-error.log*
 
 # solidity backend
 *.sol
+
+# contract info (regularly updated)
+contractInfo.json
