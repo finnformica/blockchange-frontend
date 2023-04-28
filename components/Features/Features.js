@@ -11,7 +11,7 @@ const FeatureImage = ({ src }) => (
 const FeatureContent = ({ title, description, button }) => (
   <Box>
     <SmallTitle>Analytics</SmallTitle>
-    <BigTitle>{title}</BigTitle>
+    <BigTitle maxWidth={300}>{title}</BigTitle>
     <Typography fontSize={10} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
       {description}
     </Typography>
@@ -44,6 +44,7 @@ const Features = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        my: 8,
       }}
     >
       <FeatureContainer>
