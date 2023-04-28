@@ -16,7 +16,7 @@ const Blur = () => {
         alt="background blur"
         width={800}
         height={800}
-        style={{ position: "absolute", top: 150, left: -350, zIndex: -1 }}
+        style={{ position: "absolute", top: 200, left: -400, zIndex: -1 }}
       />
     </Box>
   );
