@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 
-const PillButton = ({ children, variant, onClick }) => {
+const PillButton = ({ children, variant, onClick, ...props }) => {
   return (
     <Button
+      {...props}
       variant={variant}
       onClick={onClick}
       style={{

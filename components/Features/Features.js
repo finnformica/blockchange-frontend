@@ -16,7 +16,9 @@ const FeatureContent = ({ title, description, button }) => (
       {description}
     </Typography>
     {button ? (
-      <PillButton variant={button.variant}>{button.content}</PillButton>
+      <PillButton variant={button.variant} href={button.href}>
+        {button.content}
+      </PillButton>
     ) : (
       <></>
     )}
@@ -59,7 +61,7 @@ const Features = () => {
         <FeatureContent
           title="Built-In Analytics To Track Your NFTs"
           description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
-          button={{ variant: "contained", content: "Create" }}
+          button={{ variant: "contained", content: "Create", href: "/create" }}
         />
         <FeatureImage src="/imgs/feature2.svg" />
       </FeatureContainer>
@@ -69,7 +71,7 @@ const Features = () => {
         <FeatureContent
           title="Built-In Analytics To Track Your NFTs"
           description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
-          button={{ variant: "outlined", content: "View" }}
+          button={{ variant: "outlined", content: "View", href: "/view" }}
         />
       </FeatureContainer>
     </Container>

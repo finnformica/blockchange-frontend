@@ -31,8 +31,12 @@ const Hero = () => {
             assets.
           </Typography>
           <Box sx={{ my: 6, display: "flex", gap: 2 }}>
-            <PillButton variant="contained">Create</PillButton>
-            <PillButton variant="outlined">View</PillButton>
+            <PillButton variant="contained" href="/create">
+              Create
+            </PillButton>
+            <PillButton variant="outlined" href="/view">
+              View
+            </PillButton>
           </Box>
         </Box>
         <Box>

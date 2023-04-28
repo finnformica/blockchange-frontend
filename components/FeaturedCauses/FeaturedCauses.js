@@ -58,7 +58,9 @@ const FeaturedCauses = () => {
                   <Typography variant="body2" sx={{ mb: 2 }}>
                     {cause.desc}
                   </Typography>
-                  <PillButton variant="contained">View</PillButton>
+                  <PillButton variant="contained" href={`/view/${cause.id}`}>
+                    View
+                  </PillButton>
                 </Box>
               </Card>
             </Grid>

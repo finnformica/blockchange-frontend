@@ -22,6 +22,7 @@ const CallToAction = () => {
         <BigTitle maxWidth={300}>Be A Part Of The Next Big Thing</BigTitle>
         <Button
           variant="contained"
+          href="/create"
           style={{
             backgroundColor: "#000",
             color: "#FFF",

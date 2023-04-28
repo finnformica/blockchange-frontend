@@ -6,7 +6,7 @@ import { pages } from "../../constants/pages.js";
 
 const Footer = () => {
   return (
-    <Container maxWidth="md" sx={{ mt: 18, mb: 8, textAlign: "center" }}>
+    <Container maxWidth="md" sx={{ mt: 12, mb: 8, textAlign: "center" }}>
       <Box
         sx={{
           display: "flex",
