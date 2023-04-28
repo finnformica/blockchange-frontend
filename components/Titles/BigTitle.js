@@ -1,15 +1,15 @@
 import { Typography } from "@mui/material";
 
-const BigTitle = ({ children }) => {
+const BigTitle = (props) => {
   return (
     <Typography
+      {...props}
       variant="h2"
       fontFamily="Outfit"
       fontWeight={600}
       fontSize={36}
-      maxWidth={300}
     >
-      {children}
+      {props.children}
     </Typography>
   );
 };
