@@ -1,8 +1,7 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container, Button } from "@mui/material";
 
 import BigTitle from "../Titles/BigTitle";
 import SmallTitle from "../Titles/SmallTitle";
-import PillButton from "../PillButton/PillButton";
 
 const CallToAction = () => {
   return (
@@ -11,7 +10,7 @@ const CallToAction = () => {
         sx={{
           backgroundImage: "linear-gradient(to right, #3B39CD, #4CB8B8)",
           borderRadius: 6,
-          height: 250,
+          height: 220,
           textAlign: "center",
           display: "flex",
           flexDirection: "column",
@@ -21,9 +20,19 @@ const CallToAction = () => {
       >
         <SmallTitle color="#000">Are you ready?</SmallTitle>
         <BigTitle maxWidth={300}>Be A Part Of The Next Big Thing</BigTitle>
-        <PillButton variant="contained" backgroundColor="#000">
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "#000",
+            color: "#FFF",
+            borderRadius: 32,
+            fontSize: 10,
+            fontWeight: 600,
+            padding: "10px 40px",
+          }}
+        >
           Get Started
-        </PillButton>
+        </Button>
       </Box>
     </Container>
   );
