@@ -77,9 +77,18 @@ const Header = () => {
                 letterSpacing: ".1rem",
                 color: "inherit",
                 textDecoration: "none",
+                justifyContent: "center",
               }}
             >
-              <FaHands size="1.8rem" style={{ marginRight: 10 }} />
+              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
+              <Image
+                src="/imgs/blockchange-logo-white.svg"
+                color="#FFF"
+                alt="logo"
+                width={30}
+                height={30}
+                style={{ marginRight: 10 }}
+              />
               BlockChange
             </Typography>
 
@@ -140,7 +149,15 @@ const Header = () => {
                 textDecoration: "none",
               }}
             >
-              <FaHands size="1.8rem" style={{ marginRight: 10 }} />
+              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
+              <Image
+                src="/imgs/blockchange-logo-white.svg"
+                color="#FFF"
+                alt="logo"
+                width={30}
+                height={30}
+                style={{ marginRight: 10 }}
+              />
               BlockChange
             </Typography>
 
