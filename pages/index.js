@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <Container maxWidth="lg">
       <Hero />
-      <Features />
       <FeaturedCauses />
+      <Features />
     </Container>
   );
 }
