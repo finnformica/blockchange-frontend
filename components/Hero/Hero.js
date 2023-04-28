@@ -8,7 +8,8 @@ const Hero = () => {
     <Container maxWidth={false}>
       <Box
         sx={{
-          m: 8,
+          mx: 4,
+          my: 12,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-around",
@@ -19,13 +20,13 @@ const Hero = () => {
             variant="h1"
             fontFamily="Outfit"
             fontWeight={700}
-            fontSize={42}
-            maxWidth={220}
+            fontSize={54}
+            maxWidth={450}
             lineHeight={1.1}
           >
             Discover And Collect Rare NFTs
           </Typography>
-          <Typography fontSize={10} maxWidth={220} sx={{ pt: 2 }}>
+          <Typography fontSize={12} maxWidth={220} sx={{ pt: 2 }}>
             The most secure marketplace for buying and selling unique crypto
             assets.
           </Typography>
@@ -38,8 +39,9 @@ const Hero = () => {
           <Image
             src="/imgs/hero-img.svg"
             alt="Hero Image"
-            width={300}
-            height={300}
+            width={350}
+            height={350}
+            style={{ position: "relative", left: 50, top: -40 }}
           />
         </Box>
       </Box>
