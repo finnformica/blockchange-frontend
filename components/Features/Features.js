@@ -1,18 +1,8 @@
 import { Container, Box, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import PillButton from "../PillButton/PillButton";
-
-const AnalyticsHeader = () => (
-  <Typography
-    variant="p"
-    style={{ color: "#98D5D5" }}
-    fontWeight={600}
-    fontSize={11}
-    letterSpacing=".1rem"
-  >
-    ANALYTICS
-  </Typography>
-);
+import SmallTitle from "../Titles/SmallTitle";
+import BigTitle from "../Titles/BigTitle";
 
 const FeatureImage = ({ src }) => (
   <Image src={src} alt="Image of feature" width={250} height={250} />
@@ -20,16 +10,8 @@ const FeatureImage = ({ src }) => (
 
 const FeatureContent = ({ title, description, button }) => (
   <Box>
-    <AnalyticsHeader />
-    <Typography
-      variant="h2"
-      fontFamily="Outfit"
-      fontWeight={600}
-      fontSize={36}
-      maxWidth={300}
-    >
-      {title}
-    </Typography>
+    <SmallTitle>Analytics</SmallTitle>
+    <BigTitle>{title}</BigTitle>
     <Typography fontSize={10} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
       {description}
     </Typography>
