@@ -1,13 +1,13 @@
 import { Button } from "@mui/material";
 
-const PillButton = ({ children, variant, onClick, color = "#FFF" }) => {
+const PillButton = ({ children, variant, onClick }) => {
   return (
     <Button
       variant={variant}
       onClick={onClick}
       style={{
         backgroundColor: variant === "contained" ? "#8F8EDB" : "transparent",
-        color: { color },
+        color: "#FFF",
         borderColor: "#98D5D5",
         borderRadius: 32,
         fontSize: 10,

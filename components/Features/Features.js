@@ -52,7 +52,6 @@ const Features = () => {
         <FeatureContent
           title="Built-In Analytics To Track Your NFTs"
           description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
-          button={{ variant: "outlined", content: "View" }}
         />
       </FeatureContainer>
 
@@ -70,6 +69,7 @@ const Features = () => {
         <FeatureContent
           title="Built-In Analytics To Track Your NFTs"
           description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
+          button={{ variant: "outlined", content: "View" }}
         />
       </FeatureContainer>
     </Container>
