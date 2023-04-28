@@ -57,7 +57,10 @@ const Header = () => {
 
   return (
     <Box>
-      <AppBar position="static" color="primary">
+      <AppBar
+        position="static"
+        style={{ background: "transparent", boxShadow: "none" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
@@ -65,6 +68,8 @@ const Header = () => {
               noWrap
               component={Link}
               href="/"
+              fontFamily="Outfit"
+              fontWeight={700}
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
