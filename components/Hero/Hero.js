@@ -26,7 +26,7 @@ const Hero = () => {
           >
             Discover And Collect Rare NFTs
           </Typography>
-          <Typography fontSize={12} maxWidth={220} sx={{ pt: 2 }}>
+          <Typography fontSize={14} sx={{ pt: 2 }}>
             The most secure marketplace for buying and selling unique crypto
             assets.
           </Typography>

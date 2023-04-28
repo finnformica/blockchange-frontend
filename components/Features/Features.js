@@ -12,7 +12,7 @@ const FeatureContent = ({ title, description, button }) => (
   <Box>
     <SmallTitle>Analytics</SmallTitle>
     <BigTitle maxWidth={300}>{title}</BigTitle>
-    <Typography fontSize={10} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
+    <Typography fontSize={12} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
       {description}
     </Typography>
     {button ? (
@@ -30,8 +30,9 @@ const FeatureContainer = ({ children }) => (
     sx={{
       display: "flex",
       flexDirection: "row",
-      gap: { xs: 4, sm: 8, md: 16, lg: 24 },
-      margin: "auto",
+      gap: { xs: 4, sm: 8, md: 16 },
+
+      margin: "24px auto",
     }}
   >
     {children}

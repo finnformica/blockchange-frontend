@@ -11,7 +11,7 @@ const PillButton = ({ children, variant, onClick, ...props }) => {
         color: "#FFF",
         borderColor: "#98D5D5",
         borderRadius: 32,
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: 600,
         padding: "10px 40px",
       }}
