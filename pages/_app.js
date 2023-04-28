@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import Layout from "../layout/layout";
+import Layout from "../layout/Layout";
 import MetaTags from "../components/MetaTags/MetaTags";
 
 import { Web3ReactProvider } from "@web3-react/core";

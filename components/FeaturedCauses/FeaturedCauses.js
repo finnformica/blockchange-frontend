@@ -47,11 +47,11 @@ const FeaturedCauses = () => {
                   borderRadius: 4,
                 }}
               >
-                <img
+                <Image
                   src={cause.image_url}
                   alt="Cause thumbnail"
-                  width="100%"
-                  height="180px"
+                  width={300}
+                  height={180}
                 />
                 <Box sx={{ m: 2 }}>
                   <Typography fontWeight={700}>{cause.title}</Typography>

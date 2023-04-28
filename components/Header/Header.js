@@ -36,7 +36,7 @@ const Header = () => {
     if (typeof window.ethereum !== "undefined") {
       setHasMetamask(true);
     }
-  });
+  }, []);
 
   async function connect() {
     try {
