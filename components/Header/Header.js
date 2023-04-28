@@ -112,12 +112,12 @@ const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
+                {["Home"].concat(pages).map((page) => (
                   <MenuItem
                     key={page}
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    href={`/${page.toLowerCase()}`}
+                    href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
                   >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
