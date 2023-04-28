@@ -29,10 +29,9 @@ const FeaturedCauses = () => {
         }}
       >
         <SmallTitle>Featured Causes</SmallTitle>
-        <BigTitle pt={2} pb={3}>
+        <BigTitle pt={2} pb={4}>
           See What Others Are Doing
         </BigTitle>
-        <Divider component="div" role="presentation"></Divider>
         <Grid container spacing={4}>
           {sampleCauses.map((cause) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={cause.id}>
