@@ -5,11 +5,8 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-
-      <main>
-        <Blur />
-        {children}
-      </main>
+      <Blur />
+      <main>{children}</main>
     </>
   );
 };
