@@ -42,6 +42,10 @@ const Header = () => {
     try {
       await activate(ethereum);
       setConnected(true);
+
+      window.ethereum.on("accountsChanged", function (accounts) {
+        setConnected(false);
+      });
     } catch (e) {
       console.log(e);
     }
