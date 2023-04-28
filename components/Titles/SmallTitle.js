@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 
-const SmallTitle = (props) => {
+const SmallTitle = ({ color = "#98D5D5", ...props }) => {
   return (
     <Typography
       {...props}
       variant="p"
-      style={{ color: "#98D5D5" }}
+      color={color}
       fontWeight={600}
       fontSize={11}
       letterSpacing=".1rem"
