@@ -21,7 +21,7 @@ import Image from "next/image";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 
-const pages = ["View", "Create", "FAQs", "About"];
+import { pages } from "../../constants/pages";
 
 const Header = () => {
   const [hasMetamask, setHasMetamask] = useState(false);
@@ -112,12 +112,12 @@ const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
+                {["Home"].concat(pages).map((page) => (
                   <MenuItem
                     key={page}
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    href={`/${page.toLowerCase()}`}
+                    href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
                   >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
