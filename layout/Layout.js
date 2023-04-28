@@ -1,10 +1,15 @@
 import Header from "../components/Header/header";
+import Blur from "../components/Blur/Blur";
 
 const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+
+      <main>
+        <Blur />
+        {children}
+      </main>
     </>
   );
 };
