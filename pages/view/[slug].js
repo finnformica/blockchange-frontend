@@ -27,22 +27,40 @@ const CausePage = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ p: 4 }}>
-        <SmallTitle>Cause</SmallTitle>
-        <BigTitle fontSize={48}>{cause.title}</BigTitle>
-        <Typography fontSize={14} sx={{ pt: 1 }}>
-          {cause.desc}
-        </Typography>
-        <Box sx={{ py: 2 }}>
+      <Box
+        sx={{
+          p: 4,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            maxWidth: { xs: "100%", lg: 1000 },
+            gap: 4,
+          }}
+        >
+          <Box>
+            <SmallTitle>Cause</SmallTitle>
+            <BigTitle fontSize={48}>{cause.title}</BigTitle>
+            <Typography fontSize={14} sx={{ pt: 1 }}>
+              {cause.desc}
+            </Typography>
+          </Box>
+
           <Image
             src={cause.image_url}
             alt="Cause Image"
             width={500}
             height={300}
-            style={{ objectFit: "cover", borderRadius: 4, marginTop: 16 }}
+            style={{
+              objectFit: "cover",
+              borderRadius: 4,
+              marginTop: 16,
+            }}
           />
         </Box>
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
           <PillButton variant="contained">Donate</PillButton>
           {cause.email ? (
             <PillButton variant="outlined" href={`mailto:${cause.email}`}>
@@ -55,13 +73,13 @@ const CausePage = () => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: { xs: "column", md: "row" },
             gap: 6,
             marginTop: 8,
           }}
         >
-          {features.map((feature) => (
-            <Box sx={{ display: "flex" }}>
+          {features.map((feature, key) => (
+            <Box key={key} sx={{ display: "flex" }}>
               <Image
                 src={`/imgs/${feature.title.toLowerCase()}.svg`}
                 alt={feature}
