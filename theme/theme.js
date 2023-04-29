@@ -12,6 +12,9 @@ export const customTheme = {
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        "&::selection": {
+          background: "#98D5D5",
+        },
         body: {
           backgroundColor: "#010135",
           color: "#fff",
