@@ -1,11 +1,15 @@
 import NextLink from "next/link";
 import { forwardRef } from "react";
 
+// add next/link behaviour to MUI Link and ButtonBase components
 const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
   return <NextLink ref={ref} {...props} />;
 });
 
 export const customTheme = {
+  palette: {
+    mode: "dark",
+  },
   typography: {
     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
   },
@@ -17,7 +21,6 @@ export const customTheme = {
         },
         body: {
           backgroundColor: "#010135",
-          color: "#fff",
         },
       },
     },
