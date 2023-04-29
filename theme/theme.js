@@ -9,6 +9,12 @@ const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
 export const customTheme = {
   palette: {
     mode: "dark",
+    primary: {
+      main: "#8F8EDB",
+    },
+    secondary: {
+      main: "#98D5D5",
+    },
   },
   typography: {
     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
