@@ -49,6 +49,7 @@ const CausePage = () => {
 
           <Image
             src={cause.image_url}
+            layout="responsive"
             alt="Cause Image"
             width={500}
             height={300}
@@ -56,6 +57,7 @@ const CausePage = () => {
               objectFit: "cover",
               borderRadius: 4,
               marginTop: 16,
+              maxWidth: "500px",
             }}
           />
         </Box>
