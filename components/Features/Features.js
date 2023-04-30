@@ -5,7 +5,14 @@ import SmallTitle from "../Titles/SmallTitle";
 import BigTitle from "../Titles/BigTitle";
 
 const FeatureImage = ({ src }) => (
-  <Image src={src} alt="Image of feature" width={250} height={250} />
+  <>
+    <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+      <Image src={src} alt="Image of feature" width={250} height={250} />
+    </Box>
+    <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+      <Image src={src} alt="Image of feature" width={150} height={150} />
+    </Box>
+  </>
 );
 
 const FeatureContent = ({ title, description, button }) => (
