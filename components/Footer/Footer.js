@@ -1,7 +1,5 @@
 import { Container, Box, Button, Typography } from "@mui/material";
 
-import BigTitle from "../Titles/BigTitle";
-import SmallTitle from "../Titles/SmallTitle";
 import { pages } from "../../constants/pages.js";
 
 const Footer = () => {
@@ -9,8 +7,7 @@ const Footer = () => {
     <Container
       maxWidth="md"
       sx={{
-        mt: 12,
-        mb: 8,
+        my: 8,
         textAlign: "center",
         position: "sticky",
         top: "100%",

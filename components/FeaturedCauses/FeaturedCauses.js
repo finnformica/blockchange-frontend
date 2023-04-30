@@ -39,7 +39,6 @@ const FeaturedCauses = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  maxWidth: 300,
                   backgroundColor: "transparent",
                   border: "1px solid #3c487b",
                   color: "#fff",
@@ -49,6 +48,7 @@ const FeaturedCauses = () => {
                 <Image
                   src={cause.image_url}
                   alt="Cause thumbnail"
+                  layout="responsive"
                   width={300}
                   height={180}
                 />

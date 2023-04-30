@@ -35,8 +35,7 @@ const CausePage = () => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", lg: "row" },
-            maxWidth: { xs: "100%", lg: 1000 },
+            flexDirection: { xs: "column", md: "row" },
             gap: 4,
           }}
         >
@@ -50,6 +49,7 @@ const CausePage = () => {
 
           <Image
             src={cause.image_url}
+            layout="responsive"
             alt="Cause Image"
             width={500}
             height={300}
@@ -57,6 +57,7 @@ const CausePage = () => {
               objectFit: "cover",
               borderRadius: 4,
               marginTop: 16,
+              maxWidth: "500px",
             }}
           />
         </Box>

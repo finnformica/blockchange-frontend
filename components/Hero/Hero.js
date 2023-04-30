@@ -9,10 +9,11 @@ const Hero = () => {
       <Box
         sx={{
           mx: 4,
-          my: 12,
+          my: { xs: 4, sm: 18 },
           display: "flex",
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-around",
+          textAlign: { xs: "center", sm: "left" },
         }}
       >
         <Box>
@@ -30,7 +31,14 @@ const Hero = () => {
             The most secure marketplace for buying and selling unique crypto
             assets.
           </Typography>
-          <Box sx={{ my: 6, display: "flex", gap: 2 }}>
+          <Box
+            sx={{
+              my: 6,
+              display: "flex",
+              gap: 2,
+              justifyContent: { xs: "center", sm: "flex-start" },
+            }}
+          >
             <PillButton variant="contained" href="/create">
               Create
             </PillButton>
@@ -39,7 +47,7 @@ const Hero = () => {
             </PillButton>
           </Box>
         </Box>
-        <Box>
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <Image
             src="/imgs/hero-img.svg"
             alt="Hero Image"

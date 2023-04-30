@@ -13,7 +13,6 @@ import {
   Link,
 } from "@mui/material";
 
-import { FaHands } from "react-icons/fa";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 
 import Image from "next/image";
@@ -63,7 +62,7 @@ const Header = () => {
     <Box>
       <AppBar
         position="static"
-        style={{ background: "transparent", boxShadow: "none" }}
+        sx={{ background: "transparent", boxShadow: "none", p: 2 }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -76,7 +75,7 @@ const Header = () => {
               fontWeight={700}
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", sm: "flex" },
                 fontWeight: 700,
                 letterSpacing: ".1rem",
                 color: "inherit",
@@ -84,7 +83,6 @@ const Header = () => {
                 justifyContent: "center",
               }}
             >
-              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
               <Image
                 src="/imgs/blockchange-logo-white.svg"
                 color="#FFF"
@@ -96,7 +94,7 @@ const Header = () => {
               BlockChange
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="menu icon"
@@ -104,6 +102,7 @@ const Header = () => {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
                 color="inherit"
+                sx={{ p: 0 }}
               >
                 <HiOutlineMenuAlt1 />
               </IconButton>
@@ -122,7 +121,7 @@ const Header = () => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: "block", md: "none" },
+                  display: { xs: "block", sm: "none" },
                 }}
               >
                 {["Home"].concat(pages).map((page) => (
@@ -145,7 +144,7 @@ const Header = () => {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: "flex", md: "none" },
+                display: { xs: "flex", sm: "none" },
                 flexGrow: 1,
                 fontWeight: 700,
                 letterSpacing: ".1rem",
@@ -153,7 +152,6 @@ const Header = () => {
                 textDecoration: "none",
               }}
             >
-              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
               <Image
                 src="/imgs/blockchange-logo-white.svg"
                 color="#FFF"
@@ -165,7 +163,7 @@ const Header = () => {
               BlockChange
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page}
@@ -184,7 +182,7 @@ const Header = () => {
                 <Button
                   variant="contained"
                   color={connected ? "success" : "error"}
-                  sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1 }}
+                  sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}
                   startIcon={
                     <Image
                       src="/metamask.svg"
@@ -205,7 +203,7 @@ const Header = () => {
                 <Button
                   variant="contained"
                   color={connected ? "success" : "error"}
-                  sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }}
+                  sx={{ display: { xs: "flex", sm: "none" }, flexGrow: 1 }}
                   onClick={() => connect()}
                 >
                   <Image
