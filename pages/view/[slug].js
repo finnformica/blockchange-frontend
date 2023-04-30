@@ -35,8 +35,7 @@ const CausePage = () => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", lg: "row" },
-            maxWidth: { xs: "100%", lg: 1000 },
+            flexDirection: { xs: "column", md: "row" },
             gap: 4,
           }}
         >
