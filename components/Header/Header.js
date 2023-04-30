@@ -62,7 +62,7 @@ const Header = () => {
     <Box>
       <AppBar
         position="static"
-        style={{ background: "transparent", boxShadow: "none" }}
+        sx={{ background: "transparent", boxShadow: "none", p: 2 }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -83,7 +83,6 @@ const Header = () => {
                 justifyContent: "center",
               }}
             >
-              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
               <Image
                 src="/imgs/blockchange-logo-white.svg"
                 color="#FFF"
@@ -103,6 +102,7 @@ const Header = () => {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
                 color="inherit"
+                sx={{ p: 0 }}
               >
                 <HiOutlineMenuAlt1 />
               </IconButton>
@@ -152,7 +152,6 @@ const Header = () => {
                 textDecoration: "none",
               }}
             >
-              {/* <FaHands size="1.8rem" style={{ marginRight: 10 }} /> */}
               <Image
                 src="/imgs/blockchange-logo-white.svg"
                 color="#FFF"
