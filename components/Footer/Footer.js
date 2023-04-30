@@ -9,8 +9,7 @@ const Footer = () => {
     <Container
       maxWidth="md"
       sx={{
-        mt: 12,
-        mb: 8,
+        my: 8,
         textAlign: "center",
         position: "sticky",
         top: "100%",
