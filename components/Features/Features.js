@@ -1,5 +1,7 @@
-import { Container, Box, Typography, useTheme } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
+
 import Image from "next/image";
+
 import PillButton from "../PillButton/PillButton";
 import SmallTitle from "../Titles/SmallTitle";
 import BigTitle from "../Titles/BigTitle";

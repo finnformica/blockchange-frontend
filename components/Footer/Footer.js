@@ -1,7 +1,5 @@
 import { Container, Box, Button, Typography } from "@mui/material";
 
-import BigTitle from "../Titles/BigTitle";
-import SmallTitle from "../Titles/SmallTitle";
 import { pages } from "../../constants/pages.js";
 
 const Footer = () => {
