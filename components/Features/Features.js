@@ -22,8 +22,8 @@ const FeatureImage = ({ src }) => (
       <Image
         src={src}
         alt="Image of feature"
-        width={150}
-        height={150}
+        width={120}
+        height={120}
         quality={100}
         style={{ borderRadius: 30 }}
       />
@@ -53,7 +53,7 @@ const FeatureContainer = ({ children }) => (
     sx={{
       display: "flex",
       flexDirection: "row",
-      gap: { xs: 4, sm: 8, md: 16 },
+      gap: { xs: 2, sm: 8, md: 16 },
 
       margin: "24px auto",
     }}
