@@ -8,7 +8,6 @@ const Hero = () => {
     <Container maxWidth={false}>
       <Box
         sx={{
-          mx: 4,
           my: { xs: 4, md: 18 },
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
