@@ -18,8 +18,8 @@ const CallToAction = () => {
           alignItems: "center",
         }}
       >
-        <SmallTitle color="#000">Are you ready?</SmallTitle>
-        <BigTitle maxWidth={300}>Be A Part Of The Next Big Thing</BigTitle>
+        <SmallTitle color="#000">Join us today</SmallTitle>
+        <BigTitle maxWidth={350}>Are You Ready To Make A Difference?</BigTitle>
         <Button
           variant="contained"
           href="/create"
