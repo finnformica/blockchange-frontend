@@ -181,8 +181,16 @@ const Header = () => {
               {hasMetamask ? (
                 <Button
                   variant="contained"
-                  color={connected ? "success" : "error"}
-                  sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}
+                  sx={{
+                    flexGrow: 1,
+                    color: "#4c82fb",
+                    backgroundColor: "#213059",
+                    borderRadius: 32,
+                    "&:hover": {
+                      backgroundColor: "#213059",
+                      color: "#2B447E",
+                    },
+                  }}
                   startIcon={
                     <Image
                       src="/metamask.svg"
@@ -196,25 +204,7 @@ const Header = () => {
                   Connect{connected ? "ed" : ""}
                 </Button>
               ) : (
-                <></>
-              )}
-
-              {hasMetamask ? (
-                <Button
-                  variant="contained"
-                  color={connected ? "success" : "error"}
-                  sx={{ display: { xs: "flex", sm: "none" }, flexGrow: 1 }}
-                  onClick={() => connect()}
-                >
-                  <Image
-                    src="/metamask.svg"
-                    alt="Metamask Logo"
-                    width={20}
-                    height={20}
-                  />
-                </Button>
-              ) : (
-                <></>
+                <Typography maxWidth={100}>Please install Metamask</Typography>
               )}
             </Box>
           </Toolbar>
