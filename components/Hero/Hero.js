@@ -16,7 +16,7 @@ const Hero = () => {
           textAlign: { xs: "center", sm: "left" },
         }}
       >
-        <Box>
+        <Box maxWidth={350}>
           <Typography
             variant="h1"
             fontFamily="Outfit"
@@ -25,11 +25,11 @@ const Hero = () => {
             maxWidth={450}
             lineHeight={1.1}
           >
-            Discover And Collect Rare NFTs
+            Transparent Platform For Humanitarian Causes
           </Typography>
           <Typography fontSize={14} sx={{ pt: 2 }}>
-            The most secure marketplace for buying and selling unique crypto
-            assets.
+            BlockChange is a revolutionary platform for managing donations and
+            distributing funds to those in need.
           </Typography>
           <Box
             sx={{
@@ -49,11 +49,18 @@ const Hero = () => {
         </Box>
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <Image
-            src="/imgs/hero-img.svg"
+            src="/imgs/hero-img.png"
             alt="Hero Image"
+            layout="responsive"
             width={350}
             height={350}
-            style={{ position: "relative", left: 50, top: -40 }}
+            style={{
+              position: "relative",
+              left: 50,
+              top: -40,
+              zIndex: -10,
+              maxWidth: "450px",
+            }}
           />
         </Box>
       </Box>
