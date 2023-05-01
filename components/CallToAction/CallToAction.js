@@ -8,7 +8,7 @@ const CallToAction = () => {
     <Container maxWidth="md">
       <Box
         sx={{
-          backgroundImage: "linear-gradient(to right, #3B39CD, #4CB8B8)",
+          backgroundImage: "linear-gradient(to top right, #3B39CD, #4CB8B8)",
           borderRadius: 6,
           height: 220,
           textAlign: "center",
@@ -18,8 +18,8 @@ const CallToAction = () => {
           alignItems: "center",
         }}
       >
-        <SmallTitle color="#000">Are you ready?</SmallTitle>
-        <BigTitle maxWidth={300}>Be A Part Of The Next Big Thing</BigTitle>
+        <SmallTitle color="#000">Join us today</SmallTitle>
+        <BigTitle maxWidth={350}>Are You Ready To Make A Difference?</BigTitle>
         <Button
           variant="contained"
           href="/create"

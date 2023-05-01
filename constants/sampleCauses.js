@@ -7,6 +7,7 @@ export const sampleCauses = [
     admin: "0x391EC0c94451e924C76a2B1ffc08268823f094e5",
     email: "sample@gmail.com",
     title: "Malnutrition in Africa",
+    causeState: "2",
   },
   {
     id: "ukraine-war",
@@ -16,6 +17,7 @@ export const sampleCauses = [
     admin: "0x391EC0c94451e924C76a2B1ffc08268823f094e5",
     email: "sample@gmail.com",
     title: "Ukraine War",
+    causeState: "1",
   },
   {
     id: "education-for-all",
@@ -25,6 +27,7 @@ export const sampleCauses = [
     admin: "0x391EC0c94451e924C76a2B1ffc08268823f094e5",
     email: "sample@gmail.com",
     title: "Education for All",
+    causeState: "1",
   },
   {
     id: "covid-19-relief-fund",
@@ -34,5 +37,6 @@ export const sampleCauses = [
     admin: "0x391EC0c94451e924C76a2B1ffc08268823f094e5",
     email: "sample@gmail.com",
     title: "Covid-19 Relief Fund",
+    causeState: "2",
   },
 ];

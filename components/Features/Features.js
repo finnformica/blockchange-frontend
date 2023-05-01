@@ -9,17 +9,31 @@ import BigTitle from "../Titles/BigTitle";
 const FeatureImage = ({ src }) => (
   <>
     <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-      <Image src={src} alt="Image of feature" width={250} height={250} />
+      <Image
+        src={src}
+        alt="Image of feature"
+        width={250}
+        height={250}
+        quality={100}
+        style={{ borderRadius: 50 }}
+      />
     </Box>
     <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-      <Image src={src} alt="Image of feature" width={150} height={150} />
+      <Image
+        src={src}
+        alt="Image of feature"
+        width={120}
+        height={120}
+        quality={100}
+        style={{ borderRadius: 30 }}
+      />
     </Box>
   </>
 );
 
 const FeatureContent = ({ title, description, button }) => (
   <Box>
-    <SmallTitle>Analytics</SmallTitle>
+    <SmallTitle>Our Approach</SmallTitle>
     <BigTitle maxWidth={300}>{title}</BigTitle>
     <Typography fontSize={12} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
       {description}
@@ -39,7 +53,7 @@ const FeatureContainer = ({ children }) => (
     sx={{
       display: "flex",
       flexDirection: "row",
-      gap: { xs: 4, sm: 8, md: 16 },
+      gap: { xs: 2, sm: 8, md: 16 },
 
       margin: "24px auto",
     }}
@@ -60,27 +74,40 @@ const Features = () => {
       }}
     >
       <FeatureContainer>
-        <FeatureImage src="/imgs/feature1.svg" />
+        <Box
+          sx={{
+            backgroundImage:
+              "linear-gradient(to bottom right, rgba(152, 213, 213, 0), rgba(152, 213, 213, 0.2), rgba(152, 213, 213, 0.8))",
+            filter: "blur(45px)",
+            borderRadius: 50,
+            position: "absolute",
+            width: 250,
+            height: 250,
+            zIndex: -1,
+          }}
+        ></Box>
+        <FeatureImage src="/imgs/feature5.png" />
+
         <FeatureContent
-          title="Built-In Analytics To Track Your NFTs"
-          description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
+          title="Transparent and Secure"
+          description="Our platform is built on the blockchain, which means that all transactions are transparent and secure."
         />
       </FeatureContainer>
 
       <FeatureContainer>
         <FeatureContent
-          title="Built-In Analytics To Track Your NFTs"
-          description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
+          title="Direct Giving"
+          description="BlockChange allows you to give directly to those in need, without the need for a middleman."
           button={{ variant: "contained", content: "Create", href: "/create" }}
         />
-        <FeatureImage src="/imgs/feature2.svg" />
+        <FeatureImage src="/imgs/feature2.png" />
       </FeatureContainer>
 
       <FeatureContainer>
-        <FeatureImage src="/imgs/feature3.svg" />
+        <FeatureImage src="/imgs/feature1.png" />
         <FeatureContent
-          title="Built-In Analytics To Track Your NFTs"
-          description="Use our built-in analytics dashboard to pull valuable insights and monitor the value of your BlockChange portfolio over time."
+          title="Tech That Transforms"
+          description="We believe tech can be used to make the world a better place so we repurpose emerging tech as tools for social change."
           button={{ variant: "outlined", content: "View", href: "/view" }}
         />
       </FeatureContainer>
