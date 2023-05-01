@@ -13,7 +13,7 @@ const Blur = () => {
             width: "700px",
             height: "700px",
             marginLeft: "-700px",
-            marginTop: "-350px",
+            marginTop: "-550px",
             left: "75%",
             position: "absolute",
             filter: "blur(100px)",
