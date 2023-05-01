@@ -21,7 +21,7 @@ const Hero = () => {
             variant="h1"
             fontFamily="Outfit"
             fontWeight={700}
-            fontSize={54}
+            fontSize={{ xs: 36, sm: 48, md: 54 }}
             maxWidth={450}
             lineHeight={1.1}
           >
