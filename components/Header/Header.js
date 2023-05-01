@@ -196,7 +196,7 @@ const Header = () => {
                   Connect{connected ? "ed" : ""}
                 </Button>
               ) : (
-                "Please install Metamask"
+                <></>
               )}
 
               {hasMetamask ? (
@@ -214,7 +214,7 @@ const Header = () => {
                   />
                 </Button>
               ) : (
-                "Please install Metamask"
+                <></>
               )}
             </Box>
           </Toolbar>
