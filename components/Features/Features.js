@@ -32,7 +32,8 @@ const FeatureImage = ({ src }) => (
 );
 
 const FeatureContent = ({ title, description, button }) => (
-  <Box sx={{ textAlign: "left" }}>
+  <Box>
+    <SmallTitle>Our Approach</SmallTitle>
     <BigTitle maxWidth={300}>{title}</BigTitle>
     <Typography fontSize={12} maxWidth={220} sx={{ pt: 1, pl: 0.5, mb: 2 }}>
       {description}
@@ -70,12 +71,23 @@ const Features = () => {
         flexDirection: "column",
         justifyContent: "center",
         my: 8,
-        textAlign: "center",
       }}
     >
-      <SmallTitle>Our Approach</SmallTitle>
       <FeatureContainer>
-        <FeatureImage src="/imgs/feature1.png" />
+        <Box
+          sx={{
+            backgroundImage:
+              "linear-gradient(to bottom right, rgba(152, 213, 213, 0), rgba(152, 213, 213, 0.2), rgba(152, 213, 213, 0.8))",
+            filter: "blur(45px)",
+            borderRadius: 50,
+            position: "absolute",
+            width: 250,
+            height: 250,
+            zIndex: -1,
+          }}
+        ></Box>
+        <FeatureImage src="/imgs/feature5.png" />
+
         <FeatureContent
           title="Transparent and Secure"
           description="Our platform is built on the blockchain, which means that all transactions are transparent and secure."
@@ -92,7 +104,7 @@ const Features = () => {
       </FeatureContainer>
 
       <FeatureContainer>
-        <FeatureImage src="/imgs/feature3.svg" />
+        <FeatureImage src="/imgs/feature1.png" />
         <FeatureContent
           title="Tech That Transforms"
           description="We believe tech can be used to make the world a better place so we repurpose emerging tech as tools for social change."
