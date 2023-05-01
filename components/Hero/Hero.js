@@ -25,11 +25,12 @@ const Hero = () => {
             maxWidth={450}
             lineHeight={1.1}
           >
-            Transparent Platform For Humanitarian Causes
+            Blockchain infrastructure for charities
           </Typography>
           <Typography fontSize={14} sx={{ pt: 2 }}>
-            BlockChange is a revolutionary platform for managing donations and
-            distributing funds to those in need.
+            A distributed platform for managing donations and sending funds to
+            those in need. Charity campaigns of all sizes can be created and
+            managed through BlockChange.
           </Typography>
           <Box
             sx={{
