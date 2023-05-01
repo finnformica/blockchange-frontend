@@ -8,7 +8,7 @@ const CallToAction = () => {
     <Container maxWidth="md">
       <Box
         sx={{
-          backgroundImage: "linear-gradient(to right, #3B39CD, #4CB8B8)",
+          backgroundImage: "linear-gradient(to top right, #3B39CD, #4CB8B8)",
           borderRadius: 6,
           height: 220,
           textAlign: "center",
