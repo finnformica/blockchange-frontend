@@ -9,23 +9,29 @@ const Hero = () => {
       <Box
         sx={{
           mx: 4,
-          my: { xs: 4, sm: 18 },
+          my: { xs: 4, md: 18 },
           display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
+          flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-around",
-          textAlign: { xs: "center", sm: "left" },
+          textAlign: { xs: "center", md: "left" },
         }}
       >
-        <Box maxWidth={350}>
+        <Box
+          sx={{
+            maxWidth: {
+              xs: "100%",
+              md: 350,
+            },
+          }}
+        >
           <Typography
             variant="h1"
             fontFamily="Outfit"
             fontWeight={700}
             fontSize={{ xs: 36, sm: 48, md: 54 }}
-            maxWidth={450}
             lineHeight={1.1}
           >
-            Blockchain infrastructure for charities
+            Blockchain Infrastructure For Charities
           </Typography>
           <Typography fontSize={14} sx={{ pt: 2 }}>
             A distributed platform for managing donations and sending funds to
@@ -37,7 +43,7 @@ const Hero = () => {
               my: 6,
               display: "flex",
               gap: 2,
-              justifyContent: { xs: "center", sm: "flex-start" },
+              justifyContent: { xs: "center", md: "flex-start" },
             }}
           >
             <PillButton variant="contained" href="/create">
@@ -48,17 +54,19 @@ const Hero = () => {
             </PillButton>
           </Box>
         </Box>
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", md: "flex-start" },
+          }}
+        >
           <Image
-            src="/imgs/hero-img.png"
+            src="/imgs/hero.png"
             alt="Hero Image"
             layout="responsive"
             width={350}
             height={350}
             style={{
-              position: "relative",
-              left: 50,
-              top: -40,
               zIndex: -10,
               maxWidth: "450px",
             }}
