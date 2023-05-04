@@ -9,9 +9,7 @@ import StateChip from "../../components/StateChip/StateChip";
 import { sampleCauses } from "../../constants/sampleCauses";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
 
-const CausePage = () => {
-  const cause = sampleCauses[0];
-
+const CausePage = ({ cause }) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -73,6 +71,25 @@ const CausePage = () => {
       </Box>
     </Container>
   );
+};
+
+export const getStaticPaths = async () => {
+  const paths = sampleCauses.map((cause) => ({
+    params: { slug: cause.id },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
+  const cause = sampleCauses.find((cause) => cause.id === params.slug);
+  return {
+    props: {
+      cause,
+    },
+  };
 };
 
 export default CausePage;
