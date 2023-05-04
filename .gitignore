@@ -34,7 +34,7 @@ yarn-error.log*
 .vercel
 
 # solidity backend
-*.sol
+/blockchange-backend
 
 # contract info (regularly updated)
 contractInfo.json
