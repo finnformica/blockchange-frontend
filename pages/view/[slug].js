@@ -6,8 +6,23 @@ import SmallTitle from "../../components/Titles/SmallTitle";
 import PillButton from "../../components/PillButton/PillButton";
 import StateChip from "../../components/StateChip/StateChip";
 
-import { sampleCauses } from "../../constants/sampleCauses";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
+
+import contractInfo from "../../constants/contractInfo";
+import { ethers } from "ethers";
+
+const instantiateContractFactory = () => {
+  const url = "http://localhost:8545";
+  const provider = new ethers.providers.JsonRpcProvider(url);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    contractInfo.address,
+    contractInfo.abi,
+    signer
+  );
+
+  return contract;
+};
 
 const CausePage = ({ cause }) => {
   return (
@@ -74,9 +89,14 @@ const CausePage = ({ cause }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = sampleCauses.map((cause) => ({
-    params: { slug: cause.id },
+  const contract = instantiateContractFactory();
+
+  const res = await contract.functions.cfRetrieveIds();
+
+  const paths = res[0].map((id) => ({
+    params: { slug: id },
   }));
+
   return {
     paths,
     fallback: false,
@@ -84,7 +104,26 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const cause = sampleCauses.find((cause) => cause.id === params.slug);
+  const contract = instantiateContractFactory();
+  const res = await contract.functions.cfRetrieveInfo(params.slug);
+  const causeInfo = res[0];
+
+  const cause = {
+    id: causeInfo["id"],
+    title: causeInfo["name"],
+    admin: causeInfo["admin"],
+    incoming: causeInfo["incoming"],
+    outgoing: causeInfo["outgoing"],
+    causeTotal: ethers.utils.formatEther(
+      parseInt(causeInfo["causeTotal"]._hex).toString()
+    ),
+    causeState: parseInt(causeInfo["causeState"]._hex).toString(),
+    email: causeInfo["email"],
+    desc: causeInfo["description"],
+    website: causeInfo["website"],
+    image_url: causeInfo["thumbnail"],
+  };
+
   return {
     props: {
       cause,
