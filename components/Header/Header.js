@@ -38,6 +38,8 @@ const Header = () => {
       window.ethereum.on("accountsChanged", function (accounts) {
         setConnected(false);
       });
+
+      connect();
     }
   }, []);
 
