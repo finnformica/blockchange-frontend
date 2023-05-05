@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
@@ -24,7 +25,15 @@ const instantiateContractFactory = () => {
   return contract;
 };
 
+const donate = async (causeId, amount) => {};
+
 const CausePage = ({ cause }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <Container maxWidth="lg">
       <Box
@@ -99,36 +108,42 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params }) => {
   const contract = instantiateContractFactory();
-  const res = await contract.functions.cfRetrieveInfo(params.slug);
-  const causeInfo = res[0];
+  try {
+    const res = await contract.functions.cfRetrieveInfo(params.slug);
+    const causeInfo = res[0];
 
-  const cause = {
-    id: causeInfo["id"],
-    title: causeInfo["name"],
-    admin: causeInfo["admin"],
-    incoming: causeInfo["incoming"],
-    outgoing: causeInfo["outgoing"],
-    causeTotal: ethers.utils.formatEther(
-      parseInt(causeInfo["causeTotal"]._hex).toString()
-    ),
-    causeState: parseInt(causeInfo["causeState"]._hex).toString(),
-    email: causeInfo["email"],
-    desc: causeInfo["description"],
-    website: causeInfo["website"],
-    image_url: causeInfo["thumbnail"],
-  };
+    const cause = {
+      id: causeInfo["id"],
+      title: causeInfo["name"],
+      admin: causeInfo["admin"],
+      incoming: causeInfo["incoming"],
+      outgoing: causeInfo["outgoing"],
+      causeTotal: ethers.utils.formatEther(
+        parseInt(causeInfo["causeTotal"]._hex).toString()
+      ),
+      causeState: parseInt(causeInfo["causeState"]._hex).toString(),
+      email: causeInfo["email"],
+      desc: causeInfo["description"],
+      website: causeInfo["website"],
+      image_url: causeInfo["thumbnail"],
+    };
 
-  return {
-    props: {
-      cause,
-    },
-  };
+    return {
+      props: {
+        cause,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default CausePage;
