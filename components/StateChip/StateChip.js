@@ -28,7 +28,7 @@ const StateChip = ({ cause, color }) => {
         ></Box>
       }
       sx={{ ml: 2, pl: 1 }}
-      label={cause.causeState == "2" ? "Active" : "Inactive"}
+      label={cause.causeState == 1 ? "Active" : "Inactive"}
       size="small"
     />
   );
