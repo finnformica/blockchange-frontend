@@ -23,6 +23,7 @@ import {
 const CausePage = ({ cause }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
+  const [causeState, setCauseState] = useState(null);
 
   // display loading if page is not generated yet
   if (router.isFallback) {
@@ -51,6 +52,10 @@ const CausePage = ({ cause }) => {
         fetchAccounts().catch((e) => console.log(e));
       });
     }
+
+    if (cause.causeState) {
+      setCauseState(cause.causeState);
+    }
   }, []);
 
   return (
@@ -74,7 +79,15 @@ const CausePage = ({ cause }) => {
                 cause={cause}
                 color={cause.causeState == 1 ? "#61EF61" : "#E10600"}
               />
-              {admin ? <AdminDrawer /> : <></>}
+              {admin ? (
+                <AdminDrawer
+                  causeState={causeState}
+                  setCauseState={setCauseState}
+                  address={cause.address}
+                />
+              ) : (
+                <></>
+              )}
             </Box>
             <BigTitle fontSize={48}>{cause.title}</BigTitle>
             <Typography fontSize={14} sx={{ pt: 1 }}>
@@ -137,11 +150,11 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const contract = instantiateContractRPC(
-    contractInfo.factory_address,
-    contractInfo.factory_abi
-  );
   try {
+    const contract = instantiateContractRPC(
+      contractInfo.factory_address,
+      contractInfo.factory_abi
+    );
     const res = await contract.functions.cfRetrieveInfo(params.slug);
     const causeInfo = res[0];
 
