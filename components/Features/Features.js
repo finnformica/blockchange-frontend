@@ -81,8 +81,8 @@ const Features = () => {
             filter: "blur(45px)",
             borderRadius: 50,
             position: "absolute",
-            width: 250,
-            height: 250,
+            width: { xs: 100, sm: 250 },
+            height: { xs: 100, sm: 250 },
             zIndex: -1,
           }}
         ></Box>
