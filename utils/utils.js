@@ -2,18 +2,21 @@ import { ethers } from "ethers";
 import contractInfo from "../constants/contractInfo";
 
 export const mapTransactionStruct = (transactions) => {
-  return transactions.map((transaction) => {
+  return transactions.map((transaction, id) => {
     return {
+      id,
       sender: transaction.sender,
-      amount: ethers.utils.formatEther(
-        parseInt(transaction.amount._hex).toString()
-      ),
-      timestamp: parseInt(transaction.timestamp._hex),
+      amount:
+        ethers.utils.formatEther(parseInt(transaction.amount._hex).toString()) +
+        " ETH",
+      date: new Date(
+        parseInt(transaction.timestamp._hex) * 1000
+      ).toLocaleDateString(),
       blockNumber: parseInt(transaction.blockNumber._hex),
-      gasUsed: parseInt(transaction.gasUsed._hex),
-      transactionFee: ethers.utils.formatEther(
-        parseInt(transaction.transactionFee._hex).toString()
-      ),
+      // gasUsed: parseInt(transaction.gasUsed._hex),
+      // transactionFee: ethers.utils.formatEther(
+      //   parseInt(transaction.transactionFee._hex).toString()
+      // ),
     };
   });
 };
