@@ -24,11 +24,6 @@ const CausePage = ({ cause }) => {
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
 
-  // display loading if page is not generated yet
-  if (router.isFallback) {
-    return <h1>Loading...</h1>;
-  }
-
   // check if user is admin of cause
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
@@ -55,7 +50,12 @@ const CausePage = ({ cause }) => {
     if (cause.causeState) {
       setCauseState(cause.causeState);
     }
-  }, [cause.causeState, cause.admin]);
+  }, []);
+
+  // display loading if page is not generated yet
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <Container maxWidth="lg">
