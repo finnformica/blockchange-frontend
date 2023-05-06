@@ -55,7 +55,7 @@ const CausePage = ({ cause }) => {
     if (cause.causeState) {
       setCauseState(cause.causeState);
     }
-  }, []);
+  });
 
   return (
     <Container maxWidth="lg">
