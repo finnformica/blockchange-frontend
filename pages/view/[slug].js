@@ -55,7 +55,7 @@ const CausePage = ({ cause }) => {
     if (cause.causeState) {
       setCauseState(cause.causeState);
     }
-  });
+  }, [cause.causeState, cause.admin]);
 
   return (
     <Container maxWidth="lg">
