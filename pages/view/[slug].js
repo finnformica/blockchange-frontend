@@ -128,10 +128,17 @@ const CausePage = ({ cause }) => {
         <Box
           sx={{
             mt: 8,
+            mx: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: { xs: "flex-start", md: "center" },
+            borderRadius: 10,
+            backgroundColor: "rgba(155, 155, 155, .08)",
+            backdropFilter: "blur(4px)",
+            boxShadow: "0 0 4px 4px rgba(155, 155, 155, .08)",
+            p: 4,
+            maxWidth: 800,
           }}
         >
           <BigTitle sx={{ mb: 3 }}>Donations</BigTitle>
