@@ -1,55 +1,24 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
+
 import Image from "next/image";
 import { useRouter } from "next/router";
+
+import { ethers } from "ethers";
 
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
 import PillButton from "../../components/PillButton/PillButton";
 import StateChip from "../../components/StateChip/StateChip";
-
+import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
 
 import contractInfo from "../../constants/contractInfo";
-import { ethers } from "ethers";
-import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
-
-const instantiateContract = (address, abi) => {
-  const url = "http://localhost:8545";
-  const provider = new ethers.providers.JsonRpcProvider(url);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(address, abi, signer);
-
-  return contract;
-};
-
-const donate = async (address, amount) => {
-  try {
-    const { ethereum } = window;
-
-    if (ethereum !== undefined) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-
-      const contract = new ethers.Contract(
-        address,
-        contractInfo.contract_abi,
-        signer
-      );
-
-      const tx = await contract.donate({
-        value: ethers.utils.parseEther("1"),
-        gasLimit: 3000000,
-      });
-
-      console.log(tx);
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
+import {
+  instantiateContract,
+  donate,
+  mapTransactionStruct,
+} from "../../utils/utils";
 
 const CausePage = ({ cause }) => {
   const router = useRouter();
@@ -181,8 +150,8 @@ export const getStaticProps = async ({ params }) => {
       title: causeInfo["name"],
       admin: causeInfo["admin"],
       address: causeInfo["contractAddress"],
-      incoming: causeInfo["incoming"],
-      outgoing: causeInfo["outgoing"],
+      incoming: mapTransactionStruct(causeInfo["incoming"]),
+      outgoing: mapTransactionStruct(causeInfo["outgoing"]),
       causeTotal: ethers.utils.formatEther(
         parseInt(causeInfo["causeTotal"]._hex).toString()
       ),
@@ -192,6 +161,8 @@ export const getStaticProps = async ({ params }) => {
       website: causeInfo["website"],
       image_url: causeInfo["thumbnail"],
     };
+
+    console.log(cause);
 
     return {
       props: {
