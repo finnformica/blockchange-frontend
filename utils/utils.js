@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import contractInfo from "../constants/contractInfo";
 
 export const mapTransactionStruct = (transactions) => {
   return transactions.map((transaction) => {
