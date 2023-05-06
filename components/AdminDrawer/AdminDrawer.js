@@ -20,7 +20,7 @@ import {
 } from "../../utils/utils";
 
 const AdminDrawer = ({ causeState, setCauseState, address }) => {
-  const [adminDrawerState, setState] = useState(false);
+  const [adminDrawerState, setAdminDrawerState] = useState(false);
   const [withdrawValue, setWithdrawValue] = useState(0);
   const [adminAddress, setAdminAddress] = useState("0x00");
 
@@ -32,16 +32,20 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
       return;
     }
 
-    setState(open);
+    setAdminDrawerState(open);
   };
 
   const handleToggleState = async () => {
-    await toggleCauseState(address);
-    setCauseState(causeState == 1 ? 2 : 1);
+    try {
+      await toggleCauseState(address);
+      setCauseState(causeState == 1 ? 2 : 1);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const content = () => (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box sx={{ width: 300 }} role="presentation">
       <List>
         <ListItem key={1}>
           <ListItemText
@@ -64,7 +68,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
               size="small"
               value={withdrawValue}
               sx={{
-                width: 100,
+                width: 150,
                 "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
                   {
                     WebkitAppearance: "none",
@@ -107,7 +111,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
               label="Address"
               variant="outlined"
               size="small"
-              sx={{ width: 125 }}
+              sx={{ width: 175 }}
               value={adminAddress}
               onChange={(e) => setAdminAddress(e.target.value)}
             />

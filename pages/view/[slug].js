@@ -4,14 +4,13 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { ethers } from "ethers";
-
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
 import PillButton from "../../components/PillButton/PillButton";
 import StateChip from "../../components/StateChip/StateChip";
 import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
+import TransactTable from "../../components/TransactTable/TransactTable";
 
 import contractInfo from "../../constants/contractInfo";
 import {
@@ -24,11 +23,6 @@ const CausePage = ({ cause }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
-
-  // display loading if page is not generated yet
-  if (router.isFallback) {
-    return <h1>Loading...</h1>;
-  }
 
   // check if user is admin of cause
   useEffect(() => {
@@ -57,6 +51,11 @@ const CausePage = ({ cause }) => {
       setCauseState(cause.causeState);
     }
   }, []);
+
+  // display loading if page is not generated yet
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <Container maxWidth="lg">
@@ -126,6 +125,29 @@ const CausePage = ({ cause }) => {
           )}
         </Box>
         <CauseTrust />
+        <Box
+          sx={{
+            mt: 8,
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: { xs: "flex-start", md: "center" },
+            borderRadius: 10,
+            backgroundColor: "rgba(155, 155, 155, .08)",
+            backdropFilter: "blur(4px)",
+            boxShadow: "0 0 4px 4px rgba(155, 155, 155, .08)",
+            p: 4,
+            maxWidth: 800,
+          }}
+        >
+          <BigTitle sx={{ mb: 3 }}>Donations</BigTitle>
+          {cause.incoming.length ? (
+            <TransactTable rows={cause.incoming} />
+          ) : (
+            <Typography>No donations yet</Typography>
+          )}
+        </Box>
       </Box>
     </Container>
   );
@@ -137,11 +159,18 @@ export const getStaticPaths = async () => {
     contractInfo.factory_abi
   );
 
-  const res = await contract.functions.cfRetrieveIds();
+  var paths;
 
-  const paths = res[0].map((id) => ({
-    params: { slug: id },
-  }));
+  try {
+    const res = await contract.functions.cfRetrieveIds();
+
+    paths = res[0].map((id) => ({
+      params: { slug: id },
+    }));
+  } catch (e) {
+    paths = [];
+    console.log(e);
+  }
 
   return {
     paths,

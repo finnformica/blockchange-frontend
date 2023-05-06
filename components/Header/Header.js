@@ -188,30 +188,55 @@ const Header = () => {
 
             <Box sx={{ flexGrow: 0 }}>
               {hasMetamask ? (
-                <Button
-                  variant="contained"
-                  sx={{
-                    flexGrow: 1,
-                    color: "#4c82fb",
-                    backgroundColor: "#213059",
-                    borderRadius: 32,
-                    "&:hover": {
+                <>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      flexGrow: 1,
+                      color: "#4c82fb",
                       backgroundColor: "#213059",
-                      color: "#2B447E",
-                    },
-                  }}
-                  startIcon={
+                      borderRadius: 32,
+                      display: { xs: "flex", sm: "none" },
+                      "&:hover": {
+                        backgroundColor: "#213059",
+                        color: "#2B447E",
+                      },
+                    }}
+                    onClick={() => connect()}
+                  >
                     <Image
                       src="/metamask.svg"
                       alt="Metamask Logo"
                       width={20}
                       height={20}
                     />
-                  }
-                  onClick={() => connect()}
-                >
-                  Connect{connected ? "ed" : ""}
-                </Button>
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      flexGrow: 1,
+                      color: "#4c82fb",
+                      backgroundColor: "#213059",
+                      borderRadius: 32,
+                      display: { xs: "none", sm: "flex" },
+                      "&:hover": {
+                        backgroundColor: "#213059",
+                        color: "#2B447E",
+                      },
+                    }}
+                    startIcon={
+                      <Image
+                        src="/metamask.svg"
+                        alt="Metamask Logo"
+                        width={20}
+                        height={20}
+                      />
+                    }
+                    onClick={() => connect()}
+                  >
+                    Connect{connected ? "ed" : ""}
+                  </Button>
+                </>
               ) : (
                 <Typography maxWidth={100}>Please install Metamask</Typography>
               )}
