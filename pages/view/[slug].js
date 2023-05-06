@@ -159,11 +159,16 @@ export const getStaticPaths = async () => {
     contractInfo.factory_abi
   );
 
-  const res = await contract.functions.cfRetrieveIds();
+  try {
+    const res = await contract.functions.cfRetrieveIds();
 
-  const paths = res[0].map((id) => ({
-    params: { slug: id },
-  }));
+    const paths = res[0].map((id) => ({
+      params: { slug: id },
+    }));
+  } catch (e) {
+    const paths = [];
+    console.log(e);
+  }
 
   return {
     paths,
