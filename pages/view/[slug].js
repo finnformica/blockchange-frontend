@@ -15,7 +15,7 @@ import CauseTrust from "../../components/CauseTrust/CauseTrust";
 
 import contractInfo from "../../constants/contractInfo";
 import {
-  instantiateContract,
+  instantiateContractRPC,
   donate,
   mapTransactionStruct,
 } from "../../utils/utils";
@@ -119,7 +119,7 @@ const CausePage = ({ cause }) => {
 };
 
 export const getStaticPaths = async () => {
-  const contract = instantiateContract(
+  const contract = instantiateContractRPC(
     contractInfo.factory_address,
     contractInfo.factory_abi
   );
@@ -137,7 +137,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const contract = instantiateContract(
+  const contract = instantiateContractRPC(
     contractInfo.factory_address,
     contractInfo.factory_abi
   );
