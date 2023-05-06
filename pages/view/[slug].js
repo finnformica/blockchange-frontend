@@ -1,15 +1,63 @@
+import { useEffect, useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
+
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { ethers } from "ethers";
 
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
 import PillButton from "../../components/PillButton/PillButton";
 import StateChip from "../../components/StateChip/StateChip";
-
-import { sampleCauses } from "../../constants/sampleCauses";
+import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
 
+import contractInfo from "../../constants/contractInfo";
+import {
+  instantiateContractRPC,
+  donate,
+  retrieveContractInfo,
+} from "../../utils/utils";
+
 const CausePage = ({ cause }) => {
+  const router = useRouter();
+  const [admin, setAdmin] = useState(false);
+  const [causeState, setCauseState] = useState(null);
+
+  // display loading if page is not generated yet
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
+
+  // check if user is admin of cause
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      const fetchAccounts = async () => {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+
+        if (accounts.length == 0) {
+          setAdmin(false);
+          return;
+        }
+
+        setAdmin(accounts[0].toLowerCase() == cause.admin.toLowerCase());
+      };
+
+      fetchAccounts().catch((e) => console.log(e));
+
+      window.ethereum.on("accountsChanged", function (accounts) {
+        fetchAccounts().catch((e) => console.log(e));
+      });
+    }
+
+    if (cause.causeState) {
+      setCauseState(cause.causeState);
+    }
+  }, []);
+
   return (
     <Container maxWidth="lg">
       <Box
@@ -29,8 +77,17 @@ const CausePage = ({ cause }) => {
               <SmallTitle>Cause</SmallTitle>
               <StateChip
                 cause={cause}
-                color={cause.causeState == "2" ? "#61EF61" : "#E10600"}
+                color={cause.causeState == 1 ? "#61EF61" : "#E10600"}
               />
+              {admin ? (
+                <AdminDrawer
+                  causeState={causeState}
+                  setCauseState={setCauseState}
+                  address={cause.address}
+                />
+              ) : (
+                <></>
+              )}
             </Box>
             <BigTitle fontSize={48}>{cause.title}</BigTitle>
             <Typography fontSize={14} sx={{ pt: 1 }}>
@@ -55,7 +112,8 @@ const CausePage = ({ cause }) => {
         <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
           <PillButton
             variant="contained"
-            {...(cause.causeState == "2" ? {} : { disabled: true })}
+            {...(cause.causeState == 1 ? {} : { disabled: true })}
+            onClick={() => donate(cause.address, 2)}
           >
             Donate
           </PillButton>
@@ -74,22 +132,37 @@ const CausePage = ({ cause }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = sampleCauses.map((cause) => ({
-    params: { slug: cause.id },
+  const contract = instantiateContractRPC(
+    contractInfo.factory_address,
+    contractInfo.factory_abi
+  );
+
+  const res = await contract.functions.cfRetrieveIds();
+
+  const paths = res[0].map((id) => ({
+    params: { slug: id },
   }));
+
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params }) => {
-  const cause = sampleCauses.find((cause) => cause.id === params.slug);
-  return {
-    props: {
-      cause,
-    },
-  };
+  try {
+    const cause = await retrieveContractInfo(params.slug);
+
+    return {
+      props: {
+        cause,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default CausePage;

@@ -38,6 +38,8 @@ const Header = () => {
       window.ethereum.on("accountsChanged", function (accounts) {
         setConnected(false);
       });
+
+      connect();
     }
   }, []);
 
@@ -122,6 +124,13 @@ const Header = () => {
                 onClose={handleCloseNavMenu}
                 sx={{
                   display: { xs: "block", sm: "none" },
+                }}
+                PaperProps={{
+                  sx: {
+                    backgroundColor: "#010135",
+                    border: "1px solid #909bbc",
+                    borderRadius: "10px",
+                  },
                 }}
               >
                 {["Home"].concat(pages).map((page) => (
