@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
+  Switch,
 } from "@mui/material";
 
 const AdminDrawer = () => {
@@ -24,31 +25,29 @@ const AdminDrawer = () => {
     setState(open);
   };
 
+  const handleWithdrawFunds = () => {};
+
+  const handleRedistributeFunds = () => {};
+
   const content = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+    <Box sx={{ width: 250 }} role="presentation">
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem key={1} disablePadding>
+          <ListItemButton onClick={() => handleWithdrawFunds()}>
+            <ListItemText primary={"Withdraw funds"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem key={2} disablePadding>
+          <ListItemButton onClick={handleRedistributeFunds}>
+            <ListItemText primary={"Redistribute funds"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem key={3}>
+          <ListItemText primary={"Toggle state"} />
+          <Switch edge="end" />
+        </ListItem>
       </List>
     </Box>
   );
@@ -67,7 +66,7 @@ const AdminDrawer = () => {
             backgroundColor: "#010135",
             border: "1px solid #909bbc",
             borderRadius: "10px",
-            height: "375px",
+            height: "165px",
             m: 1,
           },
         }}
