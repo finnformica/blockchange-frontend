@@ -4,14 +4,13 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { ethers } from "ethers";
-
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
 import PillButton from "../../components/PillButton/PillButton";
 import StateChip from "../../components/StateChip/StateChip";
 import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
+import TransactTable from "../../components/TransactTable/TransactTable";
 
 import contractInfo from "../../constants/contractInfo";
 import {
@@ -126,6 +125,22 @@ const CausePage = ({ cause }) => {
           )}
         </Box>
         <CauseTrust />
+        <Box
+          sx={{
+            mt: 8,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: { xs: "flex-start", md: "center" },
+          }}
+        >
+          <BigTitle sx={{ mb: 3 }}>Donations</BigTitle>
+          {cause.incoming ? (
+            <TransactTable rows={cause.incoming} />
+          ) : (
+            <Typography>No donations yet</Typography>
+          )}
+        </Box>
       </Box>
     </Container>
   );
