@@ -75,6 +75,26 @@ export const withdrawFunds = async (address, amount = 2) => {
           gasLimit: 3000000,
         }
       );
+    } else {
+      console.log("Ethereum object not found");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateAdmin = async (address, newAdmin) => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum !== undefined) {
+      const contract = instantiateContractWeb3(
+        ethereum,
+        address,
+        contractInfo.contract_abi
+      );
+
+      const tx = await contract.updateAdmin(newAdmin, { gasLimit: 3000000 });
       console.log(tx);
     } else {
       console.log("Ethereum object not found");

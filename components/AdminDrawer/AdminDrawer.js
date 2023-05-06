@@ -16,6 +16,7 @@ import {
   toggleCauseState,
   withdrawFunds,
   redistributeFunds,
+  updateAdmin,
 } from "../../utils/utils";
 
 const AdminDrawer = ({ causeState, setCauseState, address }) => {
@@ -43,7 +44,10 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
     <Box sx={{ width: 250 }} role="presentation">
       <List>
         <ListItem key={1}>
-          <ListItemText primary={"Withdraw funds"} />
+          <ListItemText
+            primary={"Withdraw funds"}
+            secondary="Amount must be greater than zero"
+          />
         </ListItem>
         <ListItem key={2}>
           <Box
@@ -87,7 +91,10 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
         </ListItem>
         <Divider />
         <ListItem key={3}>
-          <ListItemText primary={"Update admin"} />
+          <ListItemText
+            primary={"Update admin"}
+            secondary="Must be valid Ethereum address"
+          />
         </ListItem>
         <ListItem key={4}>
           <Box
@@ -104,7 +111,12 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
               value={adminAddress}
               onChange={(e) => setAdminAddress(e.target.value)}
             />
-            <Button>Update</Button>
+            <Button
+              disabled={!(adminAddress.length == 42)}
+              onClick={() => updateAdmin(address, adminAddress)}
+            >
+              Update
+            </Button>
           </Box>
         </ListItem>
         <Divider />
@@ -153,7 +165,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
             backgroundColor: "#010135",
             border: "1px solid #909bbc",
             borderRadius: "10px",
-            height: "600px",
+            height: "420px",
             m: 1,
           },
         }}
