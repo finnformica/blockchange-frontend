@@ -55,7 +55,7 @@ const AdminDrawer = () => {
 
   return (
     <>
-      <Button sx={{ pl: 2 }} onClick={toggleDrawer(true)}>
+      <Button sx={{ ml: 2 }} onClick={toggleDrawer(true)}>
         Admin panel
       </Button>
       <Drawer
@@ -64,8 +64,8 @@ const AdminDrawer = () => {
         onClose={toggleDrawer(false)}
         PaperProps={{
           sx: {
-            backgroundColor: "#0D111C",
-            border: "1px solid #777",
+            backgroundColor: "#010135",
+            border: "1px solid #909bbc",
             borderRadius: "10px",
             height: "375px",
             m: 1,
