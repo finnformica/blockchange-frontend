@@ -142,7 +142,7 @@ const CausePage = ({ cause }) => {
           }}
         >
           <BigTitle sx={{ mb: 3 }}>Donations</BigTitle>
-          {cause.incoming ? (
+          {cause.incoming.length ? (
             <TransactTable rows={cause.incoming} />
           ) : (
             <Typography>No donations yet</Typography>
