@@ -17,7 +17,7 @@ import contractInfo from "../../constants/contractInfo";
 import {
   instantiateContractRPC,
   donate,
-  mapTransactionStruct,
+  retrieveContractInfo,
 } from "../../utils/utils";
 
 const CausePage = ({ cause }) => {
@@ -151,31 +151,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   try {
-    const contract = instantiateContractRPC(
-      contractInfo.factory_address,
-      contractInfo.factory_abi
-    );
-    const res = await contract.functions.cfRetrieveInfo(params.slug);
-    const causeInfo = res[0];
-
-    const cause = {
-      id: causeInfo["id"],
-      title: causeInfo["name"],
-      admin: causeInfo["admin"],
-      address: causeInfo["contractAddress"],
-      incoming: mapTransactionStruct(causeInfo["incoming"]),
-      outgoing: mapTransactionStruct(causeInfo["outgoing"]),
-      causeTotal: ethers.utils.formatEther(
-        parseInt(causeInfo["causeTotal"]._hex).toString()
-      ),
-      causeState: parseInt(causeInfo["causeState"]._hex).toString(),
-      email: causeInfo["email"],
-      desc: causeInfo["description"],
-      website: causeInfo["website"],
-      image_url: causeInfo["thumbnail"],
-    };
-
-    console.log(cause);
+    const cause = await retrieveContractInfo(params.slug);
 
     return {
       props: {

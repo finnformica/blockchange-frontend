@@ -147,3 +147,33 @@ export const donate = async (address, amount) => {
     console.log(e);
   }
 };
+
+export const retrieveContractInfo = async (slug) => {
+  const contract = instantiateContractRPC(
+    contractInfo.factory_address,
+    contractInfo.factory_abi
+  );
+  const res = await contract.functions.cfRetrieveInfo(slug);
+  const causeInfo = res[0];
+
+  const cause = {
+    id: causeInfo["id"],
+    title: causeInfo["name"],
+    admin: causeInfo["admin"],
+    address: causeInfo["contractAddress"],
+    incoming: mapTransactionStruct(causeInfo["incoming"]),
+    outgoing: mapTransactionStruct(causeInfo["outgoing"]),
+    causeTotal: ethers.utils.formatEther(
+      parseInt(causeInfo["causeTotal"]._hex).toString()
+    ),
+    causeState: parseInt(causeInfo["causeState"]._hex).toString(),
+    email: causeInfo["email"],
+    desc: causeInfo["description"],
+    website: causeInfo["website"],
+    image_url: causeInfo["thumbnail"],
+  };
+
+  console.log(cause);
+
+  return cause;
+};
