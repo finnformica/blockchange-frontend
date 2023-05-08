@@ -1,22 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
-const CauseTrust = () => {
-  const features = [
-    {
-      title: "Verified",
-      desc: "Every fundraiser has been verified by our Trust & Safety team.",
-    },
-    {
-      title: "Powerful",
-      desc: "Your donation helps the people and communities directly affected by this event.",
-    },
-    {
-      title: "Trusted",
-      desc: "Your donation goes straight to the wallet address of those in need.",
-    },
-  ];
+import { features } from "../../constants/constants.js";
 
+const CauseTrust = () => {
   return (
     <Box
       sx={{
