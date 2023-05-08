@@ -19,12 +19,10 @@ import {
   retrieveContractInfo,
 } from "../../utils/utils";
 
-const CausePage = ({ cause: causeArr }) => {
+const CausePage = ({ cause }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
-
-  const cause = causeArr[0];
 
   // check if user is admin of cause
   useEffect(() => {
@@ -186,7 +184,7 @@ export const getStaticProps = async ({ params }) => {
 
     return {
       props: {
-        cause,
+        cause: cause[0],
       },
     };
   } catch (e) {
