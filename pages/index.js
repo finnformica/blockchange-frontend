@@ -7,6 +7,7 @@ import CallToAction from "../components/CallToAction/CallToAction";
 
 import { retrieveContractInfo } from "../utils/utils";
 import { featuredCauses } from "../constants/constants";
+import { sampleCauses } from "../constants/sampleCauses";
 
 export default function Home({ causes }) {
   return (
@@ -32,7 +33,7 @@ export const getStaticProps = async () => {
     console.log(e);
     return {
       props: {
-        causes: [],
+        causes: sampleCauses,
       },
     };
   }
