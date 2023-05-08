@@ -14,3 +14,10 @@ export const features = [
     desc: "Your donation goes straight to the wallet address of those in need.",
   },
 ];
+
+export const featuredCauses = [
+  "malnutrition-in-africa",
+  "ukraine-war",
+  "covid-19-relief-fund",
+  "education-for-all",
+];
