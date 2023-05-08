@@ -1,6 +1,6 @@
 import { Container, Box, Button, Typography } from "@mui/material";
 
-import { pages } from "../../constants/pages.js";
+import { pages } from "../../constants/constants.js";
 
 const Footer = () => {
   return (
