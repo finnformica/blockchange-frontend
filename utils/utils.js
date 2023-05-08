@@ -156,8 +156,8 @@ export const retrieveContractInfo = async (slug) => {
     contractInfo.factory_address,
     contractInfo.factory_abi
   );
-  const res = await contract.functions.cfRetrieveInfo(slug);
-  const causeInfo = res[0];
+  const res = await contract.functions.cfRetrieveInfo([slug]);
+  const causeInfo = res[0][0];
 
   const cause = {
     id: causeInfo["id"],
