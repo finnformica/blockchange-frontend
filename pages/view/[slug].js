@@ -121,6 +121,7 @@ const CausePage = ({ cause }) => {
             variant="outlined"
             value={donation}
             type="number"
+            size="small"
             InputProps={{
               inputProps: { min: 0 },
               endAdornment: (
