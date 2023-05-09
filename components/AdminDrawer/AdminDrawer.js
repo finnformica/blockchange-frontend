@@ -169,7 +169,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
             backgroundColor: "#010135",
             border: "1px solid #909bbc",
             borderRadius: "10px",
-            height: "420px",
+            height: "auto",
             m: 1,
           },
         }}
