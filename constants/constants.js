@@ -3,15 +3,15 @@ export const pages = ["Create", "View"];
 export const features = [
   {
     title: "Verified",
-    desc: "Every fundraiser has been verified by our Trust & Safety team.",
+    desc: "Every donation is verified by the Ethereum blockchain.",
   },
   {
     title: "Powerful",
-    desc: "Your donation helps the people and communities directly affected by this event.",
+    desc: "Your donation directly helps the communities affected by this event.",
   },
   {
     title: "Trusted",
-    desc: "Your donation goes straight to the wallet address of those in need.",
+    desc: "Your donation is securely sent to the wallet address of those in need.",
   },
 ];
 
