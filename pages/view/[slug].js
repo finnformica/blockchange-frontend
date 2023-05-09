@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -23,6 +29,7 @@ const CausePage = ({ cause }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
+  const [donation, setDonation] = useState(0);
 
   // check if user is admin of cause
   useEffect(() => {
@@ -109,10 +116,39 @@ const CausePage = ({ cause }) => {
           />
         </Box>
         <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
+          <TextField
+            label="Amount"
+            variant="outlined"
+            value={donation}
+            type="number"
+            InputProps={{
+              inputProps: { min: 0 },
+              endAdornment: (
+                <InputAdornment position="start">ETH</InputAdornment>
+              ),
+            }}
+            sx={{
+              width: 150,
+              "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
+                {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+              "input[type=number]": {
+                MozAppearance: "textfield",
+              },
+            }}
+            onChange={(e) => {
+              var value = e.target.value;
+              if (value < 0) value = 0;
+
+              setDonation(value);
+            }}
+          />
           <PillButton
             variant="contained"
             {...(cause.causeState == 1 ? {} : { disabled: true })}
-            onClick={() => donate(cause.address, 2)}
+            onClick={() => donate(cause.address, donation)}
           >
             Donate
           </PillButton>
