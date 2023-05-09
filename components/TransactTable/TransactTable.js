@@ -14,7 +14,7 @@ const columns = [
 
 export function TransactTable({ rows }) {
   return (
-    <div style={{ height: 400, maxWidth: 700, width: "100%" }}>
+    <div style={{ height: 370, maxWidth: 700, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}

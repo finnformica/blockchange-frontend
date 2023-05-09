@@ -151,32 +151,31 @@ export const donate = async (address, amount) => {
   }
 };
 
-export const retrieveContractInfo = async (slug) => {
+export const retrieveContractInfo = async (slugs) => {
   const contract = instantiateContractRPC(
     contractInfo.factory_address,
     contractInfo.factory_abi
   );
-  const res = await contract.functions.cfRetrieveInfo(slug);
+
+  const res = await contract.functions.cfRetrieveInfo(slugs);
   const causeInfo = res[0];
 
-  const cause = {
-    id: causeInfo["id"],
-    title: causeInfo["name"],
-    admin: causeInfo["admin"],
-    address: causeInfo["contractAddress"],
-    incoming: mapTransactionStruct(causeInfo["incoming"]),
-    outgoing: mapTransactionStruct(causeInfo["outgoing"]),
+  const causes = causeInfo.map((cause) => ({
+    id: cause["id"],
+    title: cause["name"],
+    admin: cause["admin"],
+    address: cause["contractAddress"],
+    incoming: mapTransactionStruct(cause["incoming"]),
+    outgoing: mapTransactionStruct(cause["outgoing"]),
     causeTotal: ethers.utils.formatEther(
-      parseInt(causeInfo["causeTotal"]._hex).toString()
+      parseInt(cause["causeTotal"]._hex).toString()
     ),
-    causeState: parseInt(causeInfo["causeState"]._hex).toString(),
-    email: causeInfo["email"],
-    desc: causeInfo["description"],
-    website: causeInfo["website"],
-    image_url: causeInfo["thumbnail"],
-  };
+    causeState: parseInt(cause["causeState"]._hex).toString(),
+    email: cause["email"],
+    desc: cause["description"],
+    website: cause["website"],
+    image_url: cause["thumbnail"],
+  }));
 
-  console.log(cause);
-
-  return cause;
+  return causes;
 };

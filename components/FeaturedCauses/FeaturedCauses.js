@@ -1,13 +1,12 @@
-import { Box, Container, Card, Typography, Grid, Divider } from "@mui/material";
+import { Box, Container, Card, Typography, Grid } from "@mui/material";
 
 import Image from "next/image";
 
-import { sampleCauses } from "../../constants/sampleCauses";
 import SmallTitle from "../Titles/SmallTitle";
 import BigTitle from "../Titles/BigTitle";
 import PillButton from "../PillButton/PillButton";
 
-const FeaturedCauses = () => {
+const FeaturedCauses = ({ featuredCausesInfo }) => {
   return (
     <Container
       maxWidth={false}
@@ -33,7 +32,7 @@ const FeaturedCauses = () => {
           See What Others Are Doing
         </BigTitle>
         <Grid container spacing={4}>
-          {sampleCauses.map((cause) => (
+          {featuredCausesInfo?.map((cause) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={cause.id}>
               <Card
                 sx={{
