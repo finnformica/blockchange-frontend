@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { TextField, Container, Box } from "@mui/material";
+import { TextField, Container, Box, Alert, AlertTitle } from "@mui/material";
 
 import SmallTitle from "../components/Titles/SmallTitle";
 import BigTitle from "../components/Titles/BigTitle";
 import PillButton from "../components/PillButton/PillButton";
 
 import { create, checkIfIdUnique } from "../utils/utils";
+import ErrorAlert from "../components/ErrorAlert/ErrorAlert";
 
 const Create = () => {
   const [formState, setFormState] = useState({
@@ -15,6 +16,7 @@ const Create = () => {
     websiteURL: "",
     contactEmail: "",
   });
+  const [open, setOpen] = useState(false);
 
   const handleCreate = async () => {
     console.log("create");
@@ -24,10 +26,8 @@ const Create = () => {
 
     if (unique) {
       create(formState);
-      alert("id unique");
     } else {
-      alert("id not unique");
-      return;
+      setOpen(true);
     }
   };
 
@@ -41,6 +41,7 @@ const Create = () => {
         pt: 6,
       }}
     >
+      <ErrorAlert open={open} setOpen={setOpen} />
       <Box
         sx={{
           borderRadius: 10,
