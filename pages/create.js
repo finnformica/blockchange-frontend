@@ -7,8 +7,7 @@ import PillButton from "../components/PillButton/PillButton";
 import LoadingBackdrop from "../components/LoadingBackdrop/LoadingBackdrop";
 
 import { create, checkIfIdUnique } from "../utils/utils";
-import ErrorAlert from "../components/ErrorAlert/ErrorAlert";
-import SuccessAlert from "../components/SuccessAlert/SuccessAlert";
+import FloatingAlert from "../components/FloatingAlert/FloatingAlert";
 
 const Create = () => {
   const [formState, setFormState] = useState({
@@ -30,18 +29,20 @@ const Create = () => {
     if (unique) {
       setLoading(true);
       const tx_receipt = await create(formState);
-      console.log(tx_receipt);
-      setLoading(false);
-      setOpenSuccessAlert(true);
-      console.log("success");
 
-      setFormState({
-        title: "",
-        description: "",
-        thumbnailURL: "",
-        websiteURL: "",
-        contactEmail: "",
-      });
+      setLoading(false);
+
+      if (tx_receipt?.status == 1) {
+        setOpenSuccessAlert(true);
+
+        setFormState({
+          title: "",
+          description: "",
+          thumbnailURL: "",
+          websiteURL: "",
+          contactEmail: "",
+        });
+      }
     } else {
       setOpenErrorAlert(true);
     }
@@ -57,10 +58,22 @@ const Create = () => {
         pt: 6,
       }}
     >
-      <SuccessAlert open={openSuccessAlert} setOpen={setOpenSuccessAlert} />
-
       <LoadingBackdrop open={loading} setOpen={setLoading} />
-      <ErrorAlert open={openErrorAlert} setOpen={setOpenErrorAlert} />
+      <FloatingAlert
+        open={openSuccessAlert}
+        setOpen={setOpenSuccessAlert}
+        variant="success"
+        title="Deployment complete!"
+        message="The cause has been successfully deployed to the blockchain."
+      />
+      <FloatingAlert
+        open={openErrorAlert}
+        setOpen={setOpenErrorAlert}
+        variant="error"
+        title="Name taken"
+        message="This name is no longer available - please choose another."
+      />
+
       <Box
         sx={{
           borderRadius: 10,
