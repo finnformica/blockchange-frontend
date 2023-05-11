@@ -8,6 +8,7 @@ import LoadingBackdrop from "../components/LoadingBackdrop/LoadingBackdrop";
 
 import { create, checkIfIdUnique } from "../utils/utils";
 import ErrorAlert from "../components/ErrorAlert/ErrorAlert";
+import SuccessAlert from "../components/SuccessAlert/SuccessAlert";
 
 const Create = () => {
   const [formState, setFormState] = useState({
@@ -17,7 +18,8 @@ const Create = () => {
     websiteURL: "",
     contactEmail: "",
   });
-  const [openAlert, setOpenAlert] = useState(false);
+  const [openErrorAlert, setOpenErrorAlert] = useState(false);
+  const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleCreate = async () => {
@@ -27,7 +29,11 @@ const Create = () => {
 
     if (unique) {
       setLoading(true);
-      create(formState);
+      const tx_receipt = await create(formState);
+      console.log(tx_receipt);
+      setLoading(false);
+      setOpenSuccessAlert(true);
+      console.log("success");
 
       setFormState({
         title: "",
@@ -37,7 +43,7 @@ const Create = () => {
         contactEmail: "",
       });
     } else {
-      setOpenAlert(true);
+      setOpenErrorAlert(true);
     }
   };
 
@@ -51,8 +57,10 @@ const Create = () => {
         pt: 6,
       }}
     >
+      <SuccessAlert open={openSuccessAlert} setOpen={setOpenSuccessAlert} />
+
       <LoadingBackdrop open={loading} setOpen={setLoading} />
-      <ErrorAlert open={openAlert} setOpen={setOpenAlert} />
+      <ErrorAlert open={openErrorAlert} setOpen={setOpenErrorAlert} />
       <Box
         sx={{
           borderRadius: 10,
