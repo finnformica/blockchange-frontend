@@ -54,8 +54,10 @@ const CausePage = ({ cause }) => {
       });
     }
 
-    if (cause.causeState) {
-      setCauseState(cause.causeState);
+    if (typeof window !== "undefined") {
+      if (cause?.causeState) {
+        setCauseState(cause.causeState);
+      }
     }
   }, []);
 
