@@ -15,7 +15,7 @@ export const LoadingBackdrop = ({ open, setOpen }) => {
       >
         <CircularProgress color="inherit" />
         <Typography variant="body1" sx={{ ml: 2, p: 2, fontWeight: 500 }}>
-          Click anywhere to close
+          Loading...
         </Typography>
       </Backdrop>
     </div>
