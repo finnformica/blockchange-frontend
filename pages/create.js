@@ -4,6 +4,7 @@ import { TextField, Container, Box, Alert, AlertTitle } from "@mui/material";
 import SmallTitle from "../components/Titles/SmallTitle";
 import BigTitle from "../components/Titles/BigTitle";
 import PillButton from "../components/PillButton/PillButton";
+import LoadingBackdrop from "../components/LoadingBackdrop/LoadingBackdrop";
 
 import { create, checkIfIdUnique } from "../utils/utils";
 import ErrorAlert from "../components/ErrorAlert/ErrorAlert";
@@ -16,18 +17,27 @@ const Create = () => {
     websiteURL: "",
     contactEmail: "",
   });
-  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCreate = async () => {
-    console.log("create");
     const unique = await checkIfIdUnique(
       formState.title.toLowerCase().replaceAll(" ", "-")
     );
 
     if (unique) {
+      setLoading(true);
       create(formState);
+
+      setFormState({
+        title: "",
+        description: "",
+        thumbnailURL: "",
+        websiteURL: "",
+        contactEmail: "",
+      });
     } else {
-      setOpen(true);
+      setOpenAlert(true);
     }
   };
 
@@ -41,7 +51,8 @@ const Create = () => {
         pt: 6,
       }}
     >
-      <ErrorAlert open={open} setOpen={setOpen} />
+      <LoadingBackdrop open={loading} setOpen={setLoading} />
+      <ErrorAlert open={openAlert} setOpen={setOpenAlert} />
       <Box
         sx={{
           borderRadius: 10,
@@ -63,6 +74,7 @@ const Create = () => {
             variant="outlined"
             label="Name"
             color="secondary"
+            value={formState.title}
             onChange={(e) =>
               setFormState({ ...formState, title: e.target.value })
             }
@@ -74,6 +86,7 @@ const Create = () => {
             multiline
             rows={6}
             color="secondary"
+            value={formState.description}
             onChange={(e) =>
               setFormState({ ...formState, description: e.target.value })
             }
@@ -84,6 +97,7 @@ const Create = () => {
             variant="outlined"
             label="Thumbnail URL"
             color="secondary"
+            value={formState.thumbnailURL}
             onChange={(e) =>
               setFormState({ ...formState, thumbnailURL: e.target.value })
             }
@@ -93,6 +107,7 @@ const Create = () => {
             variant="outlined"
             label="Website URL"
             color="secondary"
+            value={formState.websiteURL}
             onChange={(e) =>
               setFormState({ ...formState, websiteURL: e.target.value })
             }
@@ -102,6 +117,7 @@ const Create = () => {
             variant="outlined"
             label="Contact Email"
             color="secondary"
+            value={formState.contactEmail}
             onChange={(e) =>
               setFormState({ ...formState, contactEmail: e.target.value })
             }
