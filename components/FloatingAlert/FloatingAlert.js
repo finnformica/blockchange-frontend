@@ -1,16 +1,18 @@
 import { Alert, AlertTitle } from "@mui/material";
 
-const ErrorAlert = ({ open, setOpen }) => {
+const FloatingAlert = ({ open, setOpen, variant, title, message }) => {
   return (
     <Alert
-      severity="error"
+      severity={variant}
       variant="filled"
       onClose={() => {
         setOpen(false);
       }}
       sx={{
         position: "absolute",
+        color: "white",
         opacity: open ? 1 : 0,
+        display: open ? "auto" : "none",
         top: 20,
         left: 0,
         right: 0,
@@ -21,10 +23,10 @@ const ErrorAlert = ({ open, setOpen }) => {
         zIndex: 100,
       }}
     >
-      <AlertTitle>Name taken</AlertTitle>
-      This name is no longer available - please choose another.
+      <AlertTitle>{title}</AlertTitle>
+      {message}
     </Alert>
   );
 };
 
-export default ErrorAlert;
+export default FloatingAlert;
