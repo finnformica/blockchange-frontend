@@ -202,6 +202,8 @@ export const create = async (formState) => {
           gasLimit: 3000000,
         }
       );
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
