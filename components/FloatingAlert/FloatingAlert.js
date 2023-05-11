@@ -1,18 +1,18 @@
 import { Alert, AlertTitle } from "@mui/material";
 
-const FloatingAlert = ({ open, setOpen, variant, title, message }) => {
+const FloatingAlert = ({ state, setState }) => {
   return (
     <Alert
-      severity={variant}
+      severity={state.severity}
       variant="filled"
       onClose={() => {
-        setOpen(false);
+        setState({ ...state, open: false });
       }}
       sx={{
         position: "absolute",
         color: "white",
-        opacity: open ? 1 : 0,
-        display: open ? "auto" : "none",
+        opacity: state.open ? 1 : 0,
+        display: state.open ? "auto" : "none",
         top: 20,
         left: 0,
         right: 0,
@@ -23,8 +23,8 @@ const FloatingAlert = ({ open, setOpen, variant, title, message }) => {
         zIndex: 100,
       }}
     >
-      <AlertTitle>{title}</AlertTitle>
-      {message}
+      <AlertTitle>{state.title}</AlertTitle>
+      {state.message}
     </Alert>
   );
 };

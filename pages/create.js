@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Container, Box, Alert, AlertTitle } from "@mui/material";
+import { TextField, Container, Box } from "@mui/material";
 
 import SmallTitle from "../components/Titles/SmallTitle";
 import BigTitle from "../components/Titles/BigTitle";
@@ -12,39 +12,72 @@ import FloatingAlert from "../components/FloatingAlert/FloatingAlert";
 const Create = () => {
   const [formState, setFormState] = useState({
     title: "",
+    id: "",
     description: "",
     thumbnailURL: "",
     websiteURL: "",
     contactEmail: "",
   });
-  const [openErrorAlert, setOpenErrorAlert] = useState(false);
-  const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
+  const [alertState, setAlertState] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+    title: "",
+  });
+
   const [loading, setLoading] = useState(false);
 
   const handleCreate = async () => {
-    const unique = await checkIfIdUnique(
-      formState.title.toLowerCase().replaceAll(" ", "-")
-    );
+    const account = await window.ethereum.request({
+      method: "eth_accounts",
+    });
 
-    if (unique) {
-      setLoading(true);
-      const tx_receipt = await create(formState);
+    console.log(account[0]);
 
-      setLoading(false);
+    if (account[0] == undefined) {
+      console.log("no account found");
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "No account found",
+        message: "Please connect your wallet to create a cause.",
+      });
+    } else {
+      const unique = await checkIfIdUnique(
+        formState.title.toLowerCase().replaceAll(" ", "-")
+      );
 
-      if (tx_receipt?.status == 1) {
-        setOpenSuccessAlert(true);
+      if (unique) {
+        setLoading(true);
+        const tx_receipt = await create(formState);
 
-        setFormState({
-          title: "",
-          description: "",
-          thumbnailURL: "",
-          websiteURL: "",
-          contactEmail: "",
+        setLoading(false);
+
+        if (tx_receipt?.status == 1) {
+          setAlertState({
+            open: true,
+            severity: "success",
+            title: "Deployment complete!",
+            message: `The cause has been successfully deployed to the blockchain. View using the id: ${formState.id}`,
+          });
+
+          setFormState({
+            title: "",
+            id: "",
+            description: "",
+            thumbnailURL: "",
+            websiteURL: "",
+            contactEmail: "",
+          });
+        }
+      } else {
+        setAlertState({
+          open: true,
+          severity: "error",
+          title: "Name taken",
+          message: "This name is no longer available - please choose another.",
         });
       }
-    } else {
-      setOpenErrorAlert(true);
     }
   };
 
@@ -59,21 +92,7 @@ const Create = () => {
       }}
     >
       <LoadingBackdrop open={loading} setOpen={setLoading} />
-      <FloatingAlert
-        open={openSuccessAlert}
-        setOpen={setOpenSuccessAlert}
-        variant="success"
-        title="Deployment complete!"
-        message="The cause has been successfully deployed to the blockchain."
-      />
-      <FloatingAlert
-        open={openErrorAlert}
-        setOpen={setOpenErrorAlert}
-        variant="error"
-        title="Name taken"
-        message="This name is no longer available - please choose another."
-      />
-
+      <FloatingAlert state={alertState} setState={setAlertState} />
       <Box
         sx={{
           borderRadius: 10,
@@ -97,7 +116,11 @@ const Create = () => {
             color="secondary"
             value={formState.title}
             onChange={(e) =>
-              setFormState({ ...formState, title: e.target.value })
+              setFormState({
+                ...formState,
+                title: e.target.value,
+                id: e.target.value.toLowerCase().replaceAll(" ", "-"),
+              })
             }
           />
           <TextField
