@@ -1,11 +1,85 @@
-import { TextField, Container, Box, useTheme } from "@mui/material";
+import { useState } from "react";
+import { TextField, Container, Box } from "@mui/material";
 
 import SmallTitle from "../components/Titles/SmallTitle";
 import BigTitle from "../components/Titles/BigTitle";
 import PillButton from "../components/PillButton/PillButton";
+import LoadingBackdrop from "../components/LoadingBackdrop/LoadingBackdrop";
+
+import { create, checkIfIdUnique } from "../utils/utils";
+import FloatingAlert from "../components/FloatingAlert/FloatingAlert";
 
 const Create = () => {
-  const theme = useTheme();
+  const [formState, setFormState] = useState({
+    title: "",
+    id: "",
+    description: "",
+    thumbnailURL: "",
+    websiteURL: "",
+    contactEmail: "",
+  });
+  const [alertState, setAlertState] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+    title: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleCreate = async () => {
+    const account = await window.ethereum.request({
+      method: "eth_accounts",
+    });
+
+    console.log(account[0]);
+
+    if (account[0] == undefined) {
+      console.log("no account found");
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "No account found",
+        message: "Please connect your wallet to create a cause.",
+      });
+    } else {
+      const unique = await checkIfIdUnique(
+        formState.title.toLowerCase().replaceAll(" ", "-")
+      );
+
+      if (unique) {
+        setLoading(true);
+        const tx_receipt = await create(formState);
+
+        setLoading(false);
+
+        if (tx_receipt?.status == 1) {
+          setAlertState({
+            open: true,
+            severity: "success",
+            title: "Deployment complete!",
+            message: `The cause has been successfully deployed to the blockchain. View using the id: ${formState.id}`,
+          });
+
+          setFormState({
+            title: "",
+            id: "",
+            description: "",
+            thumbnailURL: "",
+            websiteURL: "",
+            contactEmail: "",
+          });
+        }
+      } else {
+        setAlertState({
+          open: true,
+          severity: "error",
+          title: "Name taken",
+          message: "This name is no longer available - please choose another.",
+        });
+      }
+    }
+  };
 
   return (
     <Container
@@ -17,6 +91,8 @@ const Create = () => {
         pt: 6,
       }}
     >
+      <LoadingBackdrop open={loading} setOpen={setLoading} />
+      <FloatingAlert state={alertState} setState={setAlertState} />
       <Box
         sx={{
           borderRadius: 10,
@@ -38,35 +114,65 @@ const Create = () => {
             variant="outlined"
             label="Name"
             color="secondary"
+            value={formState.title}
+            onChange={(e) =>
+              setFormState({
+                ...formState,
+                title: e.target.value,
+                id: e.target.value.toLowerCase().replaceAll(" ", "-"),
+              })
+            }
           />
           <TextField
+            required
             id="cause-description"
             label="Description"
             multiline
             rows={6}
             color="secondary"
+            value={formState.description}
+            onChange={(e) =>
+              setFormState({ ...formState, description: e.target.value })
+            }
           />
           <TextField
+            required
             id="cause-thumbnail-url"
             variant="outlined"
             label="Thumbnail URL"
             color="secondary"
+            value={formState.thumbnailURL}
+            onChange={(e) =>
+              setFormState({ ...formState, thumbnailURL: e.target.value })
+            }
           />
           <TextField
             id="cause-website-url"
             variant="outlined"
             label="Website URL"
             color="secondary"
+            value={formState.websiteURL}
+            onChange={(e) =>
+              setFormState({ ...formState, websiteURL: e.target.value })
+            }
           />
           <TextField
             id="cause-contact-email"
             variant="outlined"
             label="Contact Email"
             color="secondary"
+            value={formState.contactEmail}
+            onChange={(e) =>
+              setFormState({ ...formState, contactEmail: e.target.value })
+            }
           />
         </Box>
 
-        <PillButton variant="contained" sx={{ mt: 4 }} onClick={() => {}}>
+        <PillButton
+          variant="contained"
+          sx={{ mt: 4 }}
+          onClick={() => handleCreate()}
+        >
           Create
         </PillButton>
       </Box>

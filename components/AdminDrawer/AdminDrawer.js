@@ -49,7 +49,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
       <List>
         <ListItem key={1}>
           <ListItemText
-            primary={"Withdraw funds"}
+            primary={"Withdraw donations"}
             secondary="Amount must be greater than zero"
           />
         </ListItem>
@@ -134,7 +134,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
             }
           >
             <ListItemText
-              primary={"Redistribute funds"}
+              primary={"Redistribute donations"}
               secondary="Cause must be inactive"
             />
           </ListItemButton>
@@ -169,7 +169,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
             backgroundColor: "#010135",
             border: "1px solid #909bbc",
             borderRadius: "10px",
-            height: "420px",
+            height: "auto",
             m: 1,
           },
         }}

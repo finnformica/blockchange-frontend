@@ -179,3 +179,59 @@ export const retrieveContractInfo = async (slugs) => {
 
   return causes;
 };
+
+export const create = async (formState) => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum !== undefined) {
+      const contract = instantiateContractWeb3(
+        ethereum,
+        contractInfo.factory_address,
+        contractInfo.factory_abi
+      );
+
+      const tx = await contract.functions.createCauseContract(
+        formState.title.toLowerCase().replaceAll(" ", "-"),
+        formState.title,
+        formState.description,
+        formState.websiteURL,
+        formState.thumbnailURL,
+        formState.contactEmail,
+        {
+          gasLimit: 3000000,
+        }
+      );
+
+      return tx.wait();
+    } else {
+      console.log("Ethereum object not found");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const checkIfIdUnique = async (id) => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum !== undefined) {
+      const contract = instantiateContractWeb3(
+        ethereum,
+        contractInfo.factory_address,
+        contractInfo.factory_abi
+      );
+
+      const tx = await contract.functions.checkIfIdUnique(id, {
+        gasLimit: 3000000,
+      });
+
+      return tx[0];
+    } else {
+      console.log("Ethereum object not found");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};

@@ -54,8 +54,10 @@ const CausePage = ({ cause }) => {
       });
     }
 
-    if (cause.causeState) {
-      setCauseState(cause.causeState);
+    if (typeof window !== "undefined") {
+      if (cause?.causeState) {
+        setCauseState(cause.causeState);
+      }
     }
   }, []);
 
@@ -121,6 +123,7 @@ const CausePage = ({ cause }) => {
             variant="outlined"
             value={donation}
             type="number"
+            size="small"
             InputProps={{
               inputProps: { min: 0 },
               endAdornment: (
@@ -160,6 +163,9 @@ const CausePage = ({ cause }) => {
             <></>
           )}
         </Box>
+        <Typography sx={{ mt: 2, fontWeight: 500 }}>
+          Cause total: {cause.causeTotal}
+        </Typography>
         <CauseTrust />
         <Box
           sx={{
