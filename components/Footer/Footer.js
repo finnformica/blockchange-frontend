@@ -43,7 +43,7 @@ const Footer = () => {
           onClick={() => setOpen(true)}
           sx={{ my: 2, color: "white", display: "block" }}
           variant="a"
-          href="#"
+          href=""
         >
           View
         </Button>

@@ -124,7 +124,7 @@ const Features = () => {
           button={{
             variant: "outlined",
             content: "View",
-            href: "#",
+            href: "",
             onClick: () => setOpen(true),
           }}
         />
