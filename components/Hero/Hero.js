@@ -1,11 +1,16 @@
 import { Container, Box, Typography } from "@mui/material";
 import PillButton from "../PillButton/PillButton";
+import ViewModal from "../ViewModal/ViewModal";
+import React, { useState } from "react";
 
 import Image from "next/image";
 
 const Hero = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <Container maxWidth={false}>
+      <ViewModal open={open} handleClose={() => setOpen(false)} />
       <Box
         sx={{
           my: { xs: 4, md: 18 },
@@ -48,7 +53,7 @@ const Hero = () => {
             <PillButton variant="contained" href="/create">
               Create
             </PillButton>
-            <PillButton variant="outlined" href="/view">
+            <PillButton variant="outlined" onClick={() => setOpen(true)}>
               View
             </PillButton>
           </Box>

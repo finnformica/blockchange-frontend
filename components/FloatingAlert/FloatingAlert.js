@@ -1,4 +1,4 @@
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert, AlertTitle, Box, Button } from "@mui/material";
 
 const FloatingAlert = ({ state, setState }) => {
   return (
@@ -24,7 +24,27 @@ const FloatingAlert = ({ state, setState }) => {
       }}
     >
       <AlertTitle>{state.title}</AlertTitle>
-      {state.message}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {state.message}
+        {state.href ? (
+          <Button
+            color="success"
+            variant="contained"
+            href={state.href}
+            sx={{ color: "white", mt: 2 }}
+          >
+            View
+          </Button>
+        ) : (
+          <></>
+        )}
+      </Box>
     </Alert>
   );
 };

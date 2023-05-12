@@ -32,10 +32,7 @@ const Create = () => {
       method: "eth_accounts",
     });
 
-    console.log(account[0]);
-
     if (account[0] == undefined) {
-      console.log("no account found");
       setAlertState({
         open: true,
         severity: "error",
@@ -58,7 +55,8 @@ const Create = () => {
             open: true,
             severity: "success",
             title: "Deployment complete!",
-            message: `The cause has been successfully deployed to the blockchain. View using the id: ${formState.id}`,
+            message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
+            href: `/view/${formState.id}`,
           });
 
           setFormState({
@@ -139,7 +137,7 @@ const Create = () => {
             required
             id="cause-thumbnail-url"
             variant="outlined"
-            label="Thumbnail URL"
+            label="Thumbnail image URL"
             color="secondary"
             value={formState.thumbnailURL}
             onChange={(e) =>
