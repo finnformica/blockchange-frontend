@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Container, Box, Typography } from "@mui/material";
 
 import Image from "next/image";
@@ -5,6 +6,7 @@ import Image from "next/image";
 import PillButton from "../PillButton/PillButton";
 import SmallTitle from "../Titles/SmallTitle";
 import BigTitle from "../Titles/BigTitle";
+import ViewModal from "../ViewModal/ViewModal";
 
 const FeatureImage = ({ src }) => (
   <>
@@ -39,7 +41,11 @@ const FeatureContent = ({ title, description, button }) => (
       {description}
     </Typography>
     {button ? (
-      <PillButton variant={button.variant} href={button.href}>
+      <PillButton
+        variant={button.variant}
+        href={button.href}
+        onClick={button.onClick}
+      >
         {button.content}
       </PillButton>
     ) : (
@@ -63,6 +69,7 @@ const FeatureContainer = ({ children }) => (
 );
 
 const Features = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Container
       maxWidth={false}
@@ -73,6 +80,7 @@ const Features = () => {
         my: 8,
       }}
     >
+      <ViewModal open={open} handleClose={() => setOpen(false)} />
       <FeatureContainer>
         <Box
           sx={{
@@ -98,7 +106,12 @@ const Features = () => {
         <FeatureContent
           title="Direct Giving"
           description="BlockChange allows you to give directly to those in need, without the need for a middleman."
-          button={{ variant: "contained", content: "Create", href: "/create" }}
+          button={{
+            variant: "contained",
+            content: "Create",
+            href: "/create",
+            onClick: () => {},
+          }}
         />
         <FeatureImage src="/imgs/feature2.png" />
       </FeatureContainer>
@@ -108,7 +121,12 @@ const Features = () => {
         <FeatureContent
           title="Tech That Transforms"
           description="We believe tech can be used to make the world a better place so we repurpose emerging tech as tools for social change."
-          button={{ variant: "outlined", content: "View", href: "/view" }}
+          button={{
+            variant: "outlined",
+            content: "View",
+            href: "#",
+            onClick: () => setOpen(true),
+          }}
         />
       </FeatureContainer>
     </Container>
