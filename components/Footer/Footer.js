@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Container, Box, Button, Typography } from "@mui/material";
 
-import { pages } from "../../constants/constants.js";
+import ViewModal from "../ViewModal/ViewModal";
 
 const Footer = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Container
       maxWidth="md"
@@ -13,6 +15,7 @@ const Footer = () => {
         top: "100%",
       }}
     >
+      <ViewModal open={open} handleClose={() => setOpen(false)} />
       <Box
         sx={{
           display: "flex",
@@ -27,16 +30,23 @@ const Footer = () => {
           BlockChange
         </Typography>
 
-        {pages.map((page) => (
-          <Button
-            key={page}
-            sx={{ my: 2, color: "white" }}
-            variant="a"
-            href={`/${page.toLowerCase()}`}
-          >
-            {page}
-          </Button>
-        ))}
+        <Button
+          key="create"
+          sx={{ my: 2, color: "white", display: "block" }}
+          variant="a"
+          href="/create"
+        >
+          Create
+        </Button>
+        <Button
+          key="view"
+          onClick={() => setOpen(true)}
+          sx={{ my: 2, color: "white", display: "block" }}
+          variant="a"
+          href="#"
+        >
+          View
+        </Button>
       </Box>
       <span style={{ color: "#888", fontSize: 10 }}>
         Copyright © 2023 BlockChange. All rights reserved.
