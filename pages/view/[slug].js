@@ -163,6 +163,9 @@ const CausePage = ({ cause }) => {
             <></>
           )}
         </Box>
+        <Typography sx={{ mt: 2, fontWeight: 500 }}>
+          Cause total: {cause.causeTotal}
+        </Typography>
         <CauseTrust />
         <Box
           sx={{
