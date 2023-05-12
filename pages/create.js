@@ -55,7 +55,7 @@ const Create = () => {
             open: true,
             severity: "success",
             title: "Deployment complete!",
-            message: `The cause has been successfully deployed to the blockchain. View using the id: ${formState.id}`,
+            message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
             href: `/view/${formState.id}`,
           });
 
