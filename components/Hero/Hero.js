@@ -8,10 +8,9 @@ import Image from "next/image";
 const Hero = () => {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   return (
     <Container maxWidth={false}>
+      <ViewModal open={open} handleClose={() => setOpen(false)} />
       <Box
         sx={{
           my: { xs: 4, md: 18 },
@@ -54,8 +53,7 @@ const Hero = () => {
             <PillButton variant="contained" href="/create">
               Create
             </PillButton>
-            <PillButton variant="outlined" onClick={handleOpen}>
-              <ViewModal open={open} handleClose={handleClose}></ViewModal>
+            <PillButton variant="outlined" onClick={() => setOpen(true)}>
               View
             </PillButton>
           </Box>
