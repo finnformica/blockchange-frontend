@@ -20,9 +20,10 @@ import Image from "next/image";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 
-import { pages } from "../../constants/constants";
+import ViewModal from "../ViewModal/ViewModal";
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
   const [hasMetamask, setHasMetamask] = useState(false);
   const [connected, setConnected] = useState(false);
 
@@ -67,6 +68,7 @@ const Header = () => {
         sx={{ background: "transparent", boxShadow: "none", p: 2 }}
       >
         <Container maxWidth="xl">
+          <ViewModal open={open} handleClose={() => setOpen(false)} />
           <Toolbar disableGutters>
             <Typography
               variant="h5"
@@ -133,16 +135,33 @@ const Header = () => {
                   },
                 }}
               >
-                {["Home"].concat(pages).map((page) => (
-                  <MenuItem
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    component={Link}
-                    href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
-                  >
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem
+                  key="home"
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  href="/"
+                >
+                  <Typography textAlign="center">Home</Typography>
+                </MenuItem>
+                <MenuItem
+                  key="create"
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  href="/create"
+                >
+                  <Typography textAlign="center">Create</Typography>
+                </MenuItem>
+                <MenuItem
+                  key="view"
+                  href="#"
+                  component={Link}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    setOpen(true);
+                  }}
+                >
+                  <Typography textAlign="center">View</Typography>
+                </MenuItem>
               </Menu>
             </Box>
 
@@ -173,17 +192,24 @@ const Header = () => {
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  variant="a"
-                  href={`/${page.toLowerCase()}`}
-                >
-                  {page}
-                </Button>
-              ))}
+              <Button
+                key="create"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                variant="a"
+                href="/create"
+              >
+                Create
+              </Button>
+              <Button
+                key="view"
+                onClick={() => setOpen(true)}
+                sx={{ my: 2, color: "white", display: "block" }}
+                variant="a"
+                href="#"
+              >
+                View
+              </Button>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
