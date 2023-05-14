@@ -1,5 +1,3 @@
-export const pages = ["Create", "View"];
-
 export const features = [
   {
     title: "Verified",
