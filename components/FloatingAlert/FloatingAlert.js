@@ -9,7 +9,7 @@ const FloatingAlert = ({ state, setState }) => {
         setState({ ...state, open: false });
       }}
       sx={{
-        position: "absolute",
+        position: "fixed",
         color: "white",
         opacity: state.open ? 1 : 0,
         display: state.open ? "auto" : "none",
