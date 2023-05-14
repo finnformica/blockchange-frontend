@@ -18,11 +18,18 @@ import {
   withdrawFunds,
   redistributeFunds,
   updateAdmin,
+  retrieveContractInfo,
 } from "../../utils/utils";
 
 import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
 
-const AdminDrawer = ({ causeState, setCauseState, address }) => {
+const AdminDrawer = ({
+  causeState,
+  setCauseState,
+  address,
+  setCause,
+  slug,
+}) => {
   const router = useRouter();
   const [adminDrawerState, setAdminDrawerState] = useState(false);
   const [withdrawValue, setWithdrawValue] = useState(0);
@@ -57,8 +64,12 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
 
   const handleToggleState = async () => {
     try {
-      const state = await toggleCauseState(address);
-      router.reload();
+      await toggleCauseState(address);
+
+      setCauseState(causeState == 2 ? 1 : 2);
+
+      const res = await retrieveContractInfo([slug]);
+      setCause(res[0]);
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +94,9 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
       try {
         await withdrawFunds(address, withdrawValue);
 
+        const res = await retrieveContractInfo([slug]);
+        setCause(res[0]);
+
         setAlertState({
           open: true,
           severity: "success",
@@ -91,8 +105,8 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
         });
 
         setWithdrawValue(0);
-        router.reload();
       } catch (error) {
+        console.log(error);
         setAlertState({
           open: true,
           severity: "error",
@@ -114,7 +128,9 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
           message: "The update has been successfully completed.",
         });
         setAdminAddress("0x00");
-        router.reload();
+
+        const res = await retrieveContractInfo([slug]);
+        setCause(res[0]);
       } catch (error) {
         setAlertState({
           open: true,
@@ -129,6 +145,30 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
         severity: "error",
         title: "Invalid address",
         message: "Please enter a valid address",
+      });
+    }
+  };
+
+  const handleRedistribute = async () => {
+    try {
+      await redistributeFunds(address);
+
+      const res = await retrieveContractInfo([slug]);
+      setCause(res[0]);
+
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "Redistribution complete!",
+        message: "The redistribution has been successfully completed.",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Redistribution failed",
+        message: "The redistribution has failed. Please try again later.",
       });
     }
   };
@@ -207,11 +247,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
         <ListItem key={5} disablePadding>
           <ListItemButton
             disabled={causeState == 1}
-            onClick={
-              causeState == 2
-                ? () => redistributeFunds(address)
-                : () => console.log("Cause is still active")
-            }
+            onClick={() => handleRedistribute()}
           >
             <ListItemText
               primary={"Redistribute donations"}
