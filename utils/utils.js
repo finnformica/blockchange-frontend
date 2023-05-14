@@ -98,7 +98,6 @@ export const updateAdmin = async (address, newAdmin) => {
       );
 
       const tx = await contract.updateAdmin(newAdmin, { gasLimit: 3000000 });
-      console.log(tx);
     } else {
       console.log("Ethereum object not found");
     }
@@ -119,7 +118,6 @@ export const redistributeFunds = async (address) => {
       );
 
       const tx = await contract.distributeFunds({ gasLimit: 3000000 });
-      console.log(tx);
     } else {
       console.log("Ethereum object not found");
     }
