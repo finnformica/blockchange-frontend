@@ -17,6 +17,7 @@ import StateChip from "../../components/StateChip/StateChip";
 import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
 import TransactTable from "../../components/TransactTable/TransactTable";
+import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
 
 import contractInfo from "../../constants/contractInfo";
 import {
@@ -25,11 +26,19 @@ import {
   retrieveContractInfo,
 } from "../../utils/utils";
 
-const CausePage = ({ cause }) => {
+const CausePage = ({ cause, slug }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
   const [donation, setDonation] = useState(0);
+  const [causeInfo, setCauseInfo] = useState(cause);
+
+  const [alertState, setAlertState] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+    title: "",
+  });
 
   // check if user is admin of cause
   useEffect(() => {
@@ -61,6 +70,31 @@ const CausePage = ({ cause }) => {
     }
   }, []);
 
+  const handleDonate = async () => {
+    try {
+      await donate(cause.address, donation);
+
+      const res = await retrieveContractInfo([slug]);
+      console.log(res);
+      cause = res[0];
+
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "Donation complete!",
+        message: "The donation has been successfully completed.",
+      });
+    } catch (e) {
+      console.log(e);
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Donation failed",
+        message: "The donation has failed. Please try again later.",
+      });
+    }
+  };
+
   // display loading if page is not generated yet
   if (router.isFallback) {
     return <h1>Loading...</h1>;
@@ -68,6 +102,7 @@ const CausePage = ({ cause }) => {
 
   return (
     <Container maxWidth="lg">
+      <FloatingAlert state={alertState} setState={setAlertState} />
       <Box
         sx={{
           p: 4,
@@ -151,7 +186,7 @@ const CausePage = ({ cause }) => {
           <PillButton
             variant="contained"
             {...(cause.causeState == 1 ? {} : { disabled: true })}
-            onClick={() => donate(cause.address, donation)}
+            onClick={() => handleDonate()}
           >
             Donate
           </PillButton>
@@ -227,6 +262,7 @@ export const getStaticProps = async ({ params }) => {
     return {
       props: {
         cause: cause[0],
+        slug: params.slug,
       },
     };
   } catch (e) {
