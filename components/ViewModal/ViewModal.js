@@ -32,7 +32,7 @@ const ViewModal = ({ open, handleClose }) => {
           type="text"
           value={id}
           onChange={(e) => {
-            setId(e.target.value);
+            setId(e.target.value.toLowerCase().replaceAll(" ", "-"));
           }}
         />
         <PillButton variant="outlined" sx={{ mt: 2 }} href={`/view/${id}`}>
