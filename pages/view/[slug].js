@@ -26,12 +26,12 @@ import {
   retrieveContractInfo,
 } from "../../utils/utils";
 
-const CausePage = ({ cause, slug }) => {
+const CausePage = ({ cause: causeInfo, slug }) => {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
   const [causeState, setCauseState] = useState(null);
   const [donation, setDonation] = useState(0);
-  const [causeInfo, setCauseInfo] = useState(cause);
+  const [cause, setCause] = useState(causeInfo);
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -75,8 +75,7 @@ const CausePage = ({ cause, slug }) => {
       await donate(cause.address, donation);
 
       const res = await retrieveContractInfo([slug]);
-      console.log(res);
-      cause = res[0];
+      setCause(res[0]);
 
       setAlertState({
         open: true,
@@ -125,8 +124,10 @@ const CausePage = ({ cause, slug }) => {
               {admin ? (
                 <AdminDrawer
                   causeState={causeState}
-                  setCauseState={setCauseState}
+                  setCause={setCause}
                   address={cause.address}
+                  slug={slug}
+                  setCauseState={setCauseState}
                 />
               ) : (
                 <></>
