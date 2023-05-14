@@ -40,122 +40,102 @@ export const instantiateContractWeb3 = (ethereum, address, abi) => {
 };
 
 export const toggleCauseState = async (address) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        address,
-        contractInfo.contract_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      address,
+      contractInfo.contract_abi
+    );
 
-      const tx = await contract.toggleCauseState({
-        gasLimit: 3000000,
-      });
+    const tx = await contract.toggleCauseState({
+      gasLimit: 3000000,
+    });
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
 export const withdrawFunds = async (address, amount = 2) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        address,
-        contractInfo.contract_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      address,
+      contractInfo.contract_abi
+    );
 
-      const tx = await contract.withdraw(
-        ethers.utils.parseEther(amount.toString()),
-        {
-          gasLimit: 3000000,
-        }
-      );
+    const tx = await contract.withdraw(
+      ethers.utils.parseEther(amount.toString()),
+      {
+        gasLimit: 3000000,
+      }
+    );
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
 export const updateAdmin = async (address, newAdmin) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        address,
-        contractInfo.contract_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      address,
+      contractInfo.contract_abi
+    );
 
-      const tx = await contract.updateAdmin(newAdmin, { gasLimit: 3000000 });
+    const tx = await contract.updateAdmin(newAdmin, { gasLimit: 3000000 });
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
 export const redistributeFunds = async (address) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        address,
-        contractInfo.contract_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      address,
+      contractInfo.contract_abi
+    );
 
-      const tx = await contract.distributeFunds({ gasLimit: 3000000 });
+    const tx = await contract.distributeFunds({ gasLimit: 3000000 });
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
 export const donate = async (address, amount) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        address,
-        contractInfo.contract_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      address,
+      contractInfo.contract_abi
+    );
 
-      const tx = await contract.donate({
-        value: ethers.utils.parseEther(amount.toString()),
-        gasLimit: 3000000,
-      });
+    const tx = await contract.donate({
+      value: ethers.utils.parseEther(amount.toString()),
+      gasLimit: 3000000,
+    });
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
@@ -175,8 +155,11 @@ export const retrieveContractInfo = async (slugs) => {
     address: cause["contractAddress"],
     incoming: mapTransactionStruct(cause["incoming"]),
     outgoing: mapTransactionStruct(cause["outgoing"]),
-    causeTotal: ethers.utils.formatEther(
+    totalDonated: ethers.utils.formatEther(
       parseInt(cause["causeTotal"]._hex).toString()
+    ),
+    totalWithdrawn: ethers.utils.formatEther(
+      parseInt(cause["causeWithdrawalTotal"]._hex).toString()
     ),
     causeState: parseInt(cause["causeState"]._hex).toString(),
     email: cause["email"],
@@ -189,34 +172,30 @@ export const retrieveContractInfo = async (slugs) => {
 };
 
 export const create = async (formState) => {
-  try {
-    const { ethereum } = window;
+  const { ethereum } = window;
 
-    if (ethereum !== undefined) {
-      const contract = instantiateContractWeb3(
-        ethereum,
-        contractInfo.factory_address,
-        contractInfo.factory_abi
-      );
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      contractInfo.factory_address,
+      contractInfo.factory_abi
+    );
 
-      const tx = await contract.functions.createCauseContract(
-        formState.title.toLowerCase().replaceAll(" ", "-"),
-        formState.title,
-        formState.description,
-        formState.websiteURL,
-        formState.thumbnailURL,
-        formState.contactEmail,
-        {
-          gasLimit: 3000000,
-        }
-      );
+    const tx = await contract.functions.createCauseContract(
+      formState.title.toLowerCase().replaceAll(" ", "-"),
+      formState.title,
+      formState.description,
+      formState.websiteURL,
+      formState.thumbnailURL,
+      formState.contactEmail,
+      {
+        gasLimit: 3000000,
+      }
+    );
 
-      return tx.wait();
-    } else {
-      console.log("Ethereum object not found");
-    }
-  } catch (e) {
-    console.log(e);
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
 
@@ -241,5 +220,25 @@ export const checkIfIdUnique = async (id) => {
     }
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const deleteCause = async (id) => {
+  const { ethereum } = window;
+
+  if (ethereum !== undefined) {
+    const contract = instantiateContractWeb3(
+      ethereum,
+      contractInfo.factory_address,
+      contractInfo.factory_abi
+    );
+
+    const tx = await contract.functions.deleteCauseContract(id, {
+      gasLimit: 3000000,
+    });
+
+    return tx.wait();
+  } else {
+    console.log("Ethereum object not found");
   }
 };
