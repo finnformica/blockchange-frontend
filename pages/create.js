@@ -45,28 +45,37 @@ const Create = () => {
       );
 
       if (unique) {
-        setLoading(true);
-        const tx_receipt = await create(formState);
+        try {
+          setLoading(true);
+          const tx_receipt = await create(formState);
 
-        setLoading(false);
+          if (tx_receipt?.status == 1) {
+            setAlertState({
+              open: true,
+              severity: "success",
+              title: "Deployment complete!",
+              message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
+              href: `/view/${formState.id}`,
+            });
 
-        if (tx_receipt?.status == 1) {
+            setFormState({
+              title: "",
+              id: "",
+              description: "",
+              thumbnailURL: "",
+              websiteURL: "",
+              contactEmail: "",
+            });
+          }
+        } catch (e) {
           setAlertState({
             open: true,
-            severity: "success",
-            title: "Deployment complete!",
-            message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
-            href: `/view/${formState.id}`,
+            severity: "error",
+            title: "Deployment failed",
+            message: "The cause could not be deployed to the blockchain.",
           });
-
-          setFormState({
-            title: "",
-            id: "",
-            description: "",
-            thumbnailURL: "",
-            websiteURL: "",
-            contactEmail: "",
-          });
+        } finally {
+          setLoading(false);
         }
       } else {
         setAlertState({
