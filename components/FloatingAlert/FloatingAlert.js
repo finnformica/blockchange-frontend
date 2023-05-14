@@ -22,8 +22,8 @@ const FloatingAlert = ({ state, setState }) => {
         m: "auto",
         width: "50%",
         maxWidth: 500,
-        transition: "opacity .5s ease",
-        zIndex: 100,
+        transition: "all .5s ease",
+        zIndex: state.open ? 100 : -100,
       }}
     >
       <AlertTitle>{state.title}</AlertTitle>
