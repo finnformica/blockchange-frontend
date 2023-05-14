@@ -3,8 +3,11 @@ import { Container, Typography, Box } from "@mui/material";
 import SmallTitle from "../components/Titles/SmallTitle";
 import BigTitle from "../components/Titles/BigTitle";
 import PillButton from "../components/PillButton/PillButton";
+import ViewModal from "../components/ViewModal/ViewModal";
 
 const Error404 = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <Container
       maxWidth="lg"
@@ -13,6 +16,7 @@ const Error404 = () => {
         pt: 12,
       }}
     >
+      <ViewModal open={open} handleClose={() => setOpen(false)} />
       <SmallTitle>Error</SmallTitle>
       <BigTitle fontSize={108} fontWeight={700}>
         404
@@ -32,7 +36,7 @@ const Error404 = () => {
         <PillButton variant="contained" href="/">
           Go Home
         </PillButton>
-        <PillButton variant="outlined" href="/view">
+        <PillButton variant="outlined" onClick={() => setOpen(true)}>
           View
         </PillButton>
       </Box>
