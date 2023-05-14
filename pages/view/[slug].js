@@ -71,6 +71,30 @@ const CausePage = ({ cause: causeInfo, slug }) => {
   }, []);
 
   const handleDonate = async () => {
+    const account = await window.ethereum.request({
+      method: "eth_accounts",
+    });
+
+    if (cause.causeState != 1) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Cause inactive",
+        message: "This cause is not accepting donations at the moment.",
+      });
+      return;
+    }
+
+    if (account[0] == undefined) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "No account found",
+        message: "Please connect your wallet to create a cause.",
+      });
+      return;
+    }
+
     try {
       await donate(cause.address, donation);
 
@@ -184,11 +208,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
               setDonation(value);
             }}
           />
-          <PillButton
-            variant="contained"
-            {...(cause.causeState == 1 ? {} : { disabled: true })}
-            onClick={() => handleDonate()}
-          >
+          <PillButton variant="contained" onClick={() => handleDonate()}>
             Donate
           </PillButton>
           {cause.email ? (
