@@ -18,6 +18,7 @@ import {
   withdrawFunds,
   redistributeFunds,
   updateAdmin,
+  deleteCause,
   retrieveContractInfo,
 } from "../../utils/utils";
 
@@ -173,6 +174,29 @@ const AdminDrawer = ({
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await deleteCause(slug);
+
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "Deletion complete!",
+        message: "The deletion has been successfully completed.",
+      });
+
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Deletion failed",
+        message: "The deletion has failed. Please try again later.",
+      });
+    }
+  };
+
   const content = () => (
     <Box sx={{ width: 300 }} role="presentation">
       <FloatingAlert state={alertState} setState={setAlertState} />
@@ -256,7 +280,19 @@ const AdminDrawer = ({
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem key={6}>
+        <ListItem key={6} disablePadding>
+          <ListItemButton
+            disabled={causeState == 1}
+            onClick={() => handleDelete()}
+          >
+            <ListItemText
+              primary={"Delete cause"}
+              secondary="Cause must be inactive"
+            />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem key={7}>
           <ListItemText
             primary={"Toggle state"}
             secondary={causeState == 1 ? "Active" : "Inactive"}
