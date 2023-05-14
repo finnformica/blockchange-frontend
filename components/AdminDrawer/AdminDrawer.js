@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Button,
   Drawer,
@@ -19,10 +20,20 @@ import {
   updateAdmin,
 } from "../../utils/utils";
 
+import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
+
 const AdminDrawer = ({ causeState, setCauseState, address }) => {
+  const router = useRouter();
   const [adminDrawerState, setAdminDrawerState] = useState(false);
   const [withdrawValue, setWithdrawValue] = useState(0);
   const [adminAddress, setAdminAddress] = useState("0x00");
+
+  const [alertState, setAlertState] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+    title: "",
+  });
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -33,19 +44,98 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
     }
 
     setAdminDrawerState(open);
+
+    if (!open) {
+      setAlertState({
+        open: false,
+        severity: "success",
+        title: "",
+        message: "",
+      });
+    }
   };
 
   const handleToggleState = async () => {
     try {
-      await toggleCauseState(address);
-      setCauseState(causeState == 1 ? 2 : 1);
+      const state = await toggleCauseState(address);
+      router.reload();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleWithdraw = async () => {
+    if (!isNaN(withdrawValue) && withdrawValue == 0) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Invalid amount",
+        message: "Amount must be greater than zero",
+      });
+    } else if (withdrawValue > causeState.balance) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Invalid amount",
+        message: "Amount must be less than the current balance",
+      });
+    } else {
+      try {
+        await withdrawFunds(address, withdrawValue);
+
+        setAlertState({
+          open: true,
+          severity: "success",
+          title: "Withdrawal complete!",
+          message: "The withdrawal has been successfully completed.",
+        });
+
+        setWithdrawValue(0);
+        router.reload();
+      } catch (error) {
+        setAlertState({
+          open: true,
+          severity: "error",
+          title: "Withdrawal failed",
+          message: "The withdrawal has failed. Please try again later.",
+        });
+      }
+    }
+  };
+
+  const handleUpdateAdmin = async () => {
+    if (adminAddress.length == 42) {
+      try {
+        await updateAdmin(address, adminAddress);
+        setAlertState({
+          open: true,
+          severity: "success",
+          title: "Update complete!",
+          message: "The update has been successfully completed.",
+        });
+        setAdminAddress("0x00");
+        router.reload();
+      } catch (error) {
+        setAlertState({
+          open: true,
+          severity: "error",
+          title: "Update failed",
+          message: "The update has failed. Please try again later.",
+        });
+      }
+    } else {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Invalid address",
+        message: "Please enter a valid address",
+      });
+    }
+  };
+
   const content = () => (
     <Box sx={{ width: 300 }} role="presentation">
+      <FloatingAlert state={alertState} setState={setAlertState} />
       <List>
         <ListItem key={1}>
           <ListItemText
@@ -85,12 +175,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
                 setWithdrawValue(value);
               }}
             />
-            <Button
-              disabled={!isNaN(withdrawValue) && withdrawValue == 0}
-              onClick={() => withdrawFunds(address, withdrawValue)}
-            >
-              Withdraw
-            </Button>
+            <Button onClick={() => handleWithdraw()}>Withdraw</Button>
           </Box>
         </ListItem>
         <Divider />
@@ -115,12 +200,7 @@ const AdminDrawer = ({ causeState, setCauseState, address }) => {
               value={adminAddress}
               onChange={(e) => setAdminAddress(e.target.value)}
             />
-            <Button
-              disabled={!(adminAddress.length == 42)}
-              onClick={() => updateAdmin(address, adminAddress)}
-            >
-              Update
-            </Button>
+            <Button onClick={() => handleUpdateAdmin()}>Update</Button>
           </Box>
         </ListItem>
         <Divider />
