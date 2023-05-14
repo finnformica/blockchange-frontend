@@ -16,7 +16,6 @@ const FloatingAlert = ({ state, setState }) => {
         position: "fixed",
         color: "white",
         opacity: state.open ? 1 : 0,
-        display: state.open ? "auto" : "none",
         top: 20,
         left: 0,
         right: 0,
