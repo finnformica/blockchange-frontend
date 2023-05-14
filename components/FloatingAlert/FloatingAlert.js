@@ -5,7 +5,7 @@ const FloatingAlert = ({ state, setState }) => {
     <Alert
       severity={state.severity}
       variant="filled"
-      {...(state.severity === "success"
+      {...(state.href
         ? {}
         : {
             onClose: () => {
@@ -37,7 +37,7 @@ const FloatingAlert = ({ state, setState }) => {
         {state.message}
         {state.href ? (
           <Button
-            color="success"
+            color={state.severity}
             variant="contained"
             href={state.href}
             sx={{ color: "white", mt: 2 }}
