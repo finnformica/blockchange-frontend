@@ -5,13 +5,13 @@ const FloatingAlert = ({ state, setState }) => {
     <Alert
       severity={state.severity}
       variant="filled"
-      onClose={
-        state.severity === "success"
-          ? false
-          : () => {
+      {...(state.severity === "success"
+        ? {}
+        : {
+            onClose: () => {
               setState({ ...state, open: false });
-            }
-      }
+            },
+          })}
       sx={{
         position: "fixed",
         color: "white",
