@@ -11,7 +11,7 @@ const getLibrary = (provider) => {
   return new Web3Provider(provider);
 };
 
-function MyApp({ Component, pageProps }) {
+function BlockChange({ Component, pageProps }) {
   const theme = createTheme(customTheme);
 
   return (
@@ -29,4 +29,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default BlockChange;
