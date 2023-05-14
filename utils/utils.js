@@ -53,6 +53,8 @@ export const toggleCauseState = async (address) => {
       const tx = await contract.toggleCauseState({
         gasLimit: 3000000,
       });
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
@@ -78,6 +80,8 @@ export const withdrawFunds = async (address, amount = 2) => {
           gasLimit: 3000000,
         }
       );
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
@@ -98,6 +102,8 @@ export const updateAdmin = async (address, newAdmin) => {
       );
 
       const tx = await contract.updateAdmin(newAdmin, { gasLimit: 3000000 });
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
@@ -118,6 +124,8 @@ export const redistributeFunds = async (address) => {
       );
 
       const tx = await contract.distributeFunds({ gasLimit: 3000000 });
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
@@ -141,6 +149,8 @@ export const donate = async (address, amount) => {
         value: ethers.utils.parseEther(amount.toString()),
         gasLimit: 3000000,
       });
+
+      return tx.wait();
     } else {
       console.log("Ethereum object not found");
     }
