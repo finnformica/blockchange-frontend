@@ -152,6 +152,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
                   address={cause.address}
                   slug={slug}
                   setCauseState={setCauseState}
+                  balance={cause.totalDonated - cause.totalWithdrawn}
                 />
               ) : (
                 <></>
@@ -224,6 +225,9 @@ const CausePage = ({ cause: causeInfo, slug }) => {
         </Typography>
         <Typography sx={{ mt: 2, fontWeight: 500 }}>
           Total withdrawn: {cause.totalWithdrawn}
+        </Typography>
+        <Typography sx={{ mt: 2, fontWeight: 500 }}>
+          Cause balance: {cause.totalDonated - cause.totalWithdrawn}
         </Typography>
         <CauseTrust />
         <Box

@@ -27,6 +27,7 @@ import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
 const AdminDrawer = ({
   causeState,
   setCauseState,
+  balance,
   address,
   setCause,
   slug,
@@ -84,7 +85,7 @@ const AdminDrawer = ({
         title: "Invalid amount",
         message: "Amount must be greater than zero",
       });
-    } else if (withdrawValue > causeState.balance) {
+    } else if (withdrawValue > balance) {
       setAlertState({
         open: true,
         severity: "error",
