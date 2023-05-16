@@ -310,7 +310,12 @@ const AdminDrawer = ({
 
   return (
     <>
-      <Button sx={{ ml: 2 }} onClick={toggleDrawer(true)}>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{ ml: 2, color: "#FFF" }}
+        onClick={toggleDrawer(true)}
+      >
         Admin panel
       </Button>
       <Drawer
