@@ -5,7 +5,7 @@ export const mapTransactionStruct = (transactions) => {
   return transactions.map((transaction, id) => {
     return {
       id,
-      sender: transaction.sender,
+      wallet: transaction.sender,
       amount:
         ethers.utils.formatEther(parseInt(transaction.amount._hex).toString()) +
         " ETH",

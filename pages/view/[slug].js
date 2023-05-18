@@ -95,6 +95,16 @@ const CausePage = ({ cause: causeInfo, slug }) => {
       return;
     }
 
+    if (donation <= 0) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Invalid donation amount",
+        message: "Please enter a donation greater than zero.",
+      });
+      return;
+    }
+
     try {
       await donate(cause.address, donation);
 
@@ -248,9 +258,32 @@ const CausePage = ({ cause: causeInfo, slug }) => {
         >
           <BigTitle sx={{ mb: 3 }}>Donations</BigTitle>
           {cause.incoming.length ? (
-            <TransactTable rows={cause.incoming} />
+            <TransactTable rows={cause.incoming} header="Sender" />
           ) : (
             <Typography>No donations yet</Typography>
+          )}
+        </Box>
+        <Box
+          sx={{
+            mt: 8,
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: { xs: "flex-start", md: "center" },
+            borderRadius: 10,
+            backgroundColor: "rgba(155, 155, 155, .08)",
+            backdropFilter: "blur(4px)",
+            boxShadow: "0 0 4px 4px rgba(155, 155, 155, .08)",
+            p: 4,
+            maxWidth: 800,
+          }}
+        >
+          <BigTitle sx={{ mb: 3 }}>Withdrawals</BigTitle>
+          {cause.outgoing.length ? (
+            <TransactTable rows={cause.outgoing} header="Reciever" />
+          ) : (
+            <Typography>No withdrawals yet</Typography>
           )}
         </Box>
       </Box>
