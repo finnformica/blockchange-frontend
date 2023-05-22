@@ -24,7 +24,8 @@ import { donate, retrieveContractInfo } from "../../utils/utils";
 
 const CausePage = ({ slug }) => {
   const router = useRouter();
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState("admin");
+  const [activeAccount, setActiveAccount] = useState("active");
   const [causeState, setCauseState] = useState(null);
   const [donation, setDonation] = useState(0);
   const [cause, setCause] = useState(null);
@@ -46,26 +47,30 @@ const CausePage = ({ slug }) => {
         });
 
         if (accounts.length == 0) {
-          setAdmin(false);
           return;
         }
 
-        setAdmin(accounts[0].toLowerCase() == cause.admin.toLowerCase());
+        setActiveAccount(accounts[0].toLowerCase());
       };
 
       retrieveContractInfo([slug])
         .then((causes) => {
           setCause(causes[0]);
+          setAdmin(causes[0].admin.toLowerCase());
         })
         .catch((e) => console.log(e));
 
+      fetchAccounts().catch((e) => console.log(e));
+
       window.ethereum.on("accountsChanged", function (accounts) {
-        fetchAccounts().catch((e) => console.log(e));
         retrieveContractInfo([slug])
           .then((causes) => {
             setCause(causes[0]);
+            setAdmin(causes[0].admin.toLowerCase());
           })
           .catch((e) => console.log(e));
+
+        fetchAccounts().catch((e) => console.log(e));
       });
     }
 
@@ -139,7 +144,11 @@ const CausePage = ({ slug }) => {
 
   // display loading if page is not generated yet
   if (router.isFallback || cause == null) {
-    return <h1>Loading...</h1>;
+    return (
+      <Container maxWidth="lg">
+        <h1>Loading...</h1>
+      </Container>
+    );
   }
 
   return (
@@ -165,7 +174,7 @@ const CausePage = ({ slug }) => {
                 cause={cause}
                 color={cause.causeState == 1 ? "#61EF61" : "#E10600"}
               />
-              {admin ? (
+              {admin == activeAccount ? (
                 <AdminDrawer
                   causeState={causeState}
                   setCause={setCause}
@@ -309,7 +318,6 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  console.log(params.slug);
   return {
     props: {
       slug: params.slug,
