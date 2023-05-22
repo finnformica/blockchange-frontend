@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/router";
+
 import {
   Box,
   Container,
@@ -6,9 +10,6 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-
-import Image from "next/image";
-import { useRouter } from "next/router";
 
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
@@ -58,7 +59,7 @@ const CausePage = ({ slug }) => {
           setCause(causes[0]);
           setAdmin(causes[0].admin.toLowerCase());
         })
-        .catch((e) => console.log(e));
+        .catch((e) => router.push("/404"));
 
       fetchAccounts().catch((e) => console.log(e));
 
@@ -68,7 +69,7 @@ const CausePage = ({ slug }) => {
             setCause(causes[0]);
             setAdmin(causes[0].admin.toLowerCase());
           })
-          .catch((e) => console.log(e));
+          .catch((e) => router.push("/404"));
 
         fetchAccounts().catch((e) => console.log(e));
       });
