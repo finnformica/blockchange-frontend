@@ -11,11 +11,10 @@ export const LoadingBackdrop = ({ open, setOpen }) => {
           flexDirection: "column",
         }}
         open={open}
-        onClick={() => setOpen(false)}
       >
         <CircularProgress color="inherit" />
         <Typography variant="body1" sx={{ ml: 2, p: 2, fontWeight: 500 }}>
-          Loading...
+          Sending request to the blockchain...
         </Typography>
       </Backdrop>
     </div>
