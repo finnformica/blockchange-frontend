@@ -21,15 +21,6 @@ export const mapTransactionStruct = (transactions) => {
   });
 };
 
-export const instantiateContractRPC = (address, abi) => {
-  const url = "http://localhost:8545";
-  const provider = new ethers.providers.JsonRpcProvider(url);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(address, abi, signer);
-
-  return contract;
-};
-
 export const instantiateContractWeb3 = (ethereum, address, abi) => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -140,7 +131,8 @@ export const donate = async (address, amount) => {
 };
 
 export const retrieveContractInfo = async (slugs) => {
-  const contract = instantiateContractRPC(
+  const contract = instantiateContractWeb3(
+    ethereum,
     contractInfo.factory_address,
     contractInfo.factory_abi
   );
