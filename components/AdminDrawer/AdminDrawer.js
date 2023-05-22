@@ -32,6 +32,7 @@ const AdminDrawer = ({
   address,
   setCause,
   slug,
+  fundsDistributedFlag,
 }) => {
   const router = useRouter();
   const [adminDrawerState, setAdminDrawerState] = useState(false);
@@ -180,6 +181,16 @@ const AdminDrawer = ({
   };
 
   const handleRedistribute = async () => {
+    if (fundsDistributedFlag != 1) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Cannot redistribute funds",
+        message: "Funds have already been redistributed once before.",
+      });
+      return;
+    }
+
     try {
       setLoading(true);
       await redistributeFunds(address);
