@@ -19,7 +19,15 @@ export default function Home() {
         .then((causes) => {
           setCauses(causes);
         })
-        .catch((e) => alert(e));
+        .catch((e) => console.log(e));
+
+      window.ethereum.on("accountsChanged", function (accounts) {
+        retrieveContractInfo(featuredCauses)
+          .then((causes) => {
+            setCauses(causes);
+          })
+          .catch((e) => console.log(e));
+      });
     } else {
       console.log("Ethereum object not found");
     }
