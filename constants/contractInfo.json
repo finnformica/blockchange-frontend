@@ -1,1 +1,568 @@
-{"factory_abi": [{"inputs": [], "name": "cfRetrieveIds", "outputs": [{"internalType": "string[]", "name": "", "type": "string[]"}], "stateMutability": "view", "type": "function"}, {"inputs": [{"internalType": "string", "name": "_id", "type": "string"}], "name": "cfRetrieveInfo", "outputs": [{"components": [{"internalType": "string", "name": "id", "type": "string"}, {"internalType": "string", "name": "name", "type": "string"}, {"internalType": "address", "name": "admin", "type": "address"}, {"components": [{"internalType": "address", "name": "sender", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "uint256", "name": "timestamp", "type": "uint256"}, {"internalType": "uint256", "name": "blockNumber", "type": "uint256"}, {"internalType": "uint256", "name": "gasUsed", "type": "uint256"}, {"internalType": "uint256", "name": "transactionFee", "type": "uint256"}], "internalType": "struct CauseContract.Transaction[]", "name": "incoming", "type": "tuple[]"}, {"components": [{"internalType": "address", "name": "sender", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "uint256", "name": "timestamp", "type": "uint256"}, {"internalType": "uint256", "name": "blockNumber", "type": "uint256"}, {"internalType": "uint256", "name": "gasUsed", "type": "uint256"}, {"internalType": "uint256", "name": "transactionFee", "type": "uint256"}], "internalType": "struct CauseContract.Transaction[]", "name": "outgoing", "type": "tuple[]"}, {"internalType": "address", "name": "contractAddress", "type": "address"}, {"internalType": "uint256", "name": "causeTotal", "type": "uint256"}, {"internalType": "uint256", "name": "causeState", "type": "uint256"}, {"internalType": "string", "name": "email", "type": "string"}, {"internalType": "string", "name": "description", "type": "string"}, {"internalType": "string", "name": "website", "type": "string"}, {"internalType": "string", "name": "thumbnail", "type": "string"}], "internalType": "struct CauseContract.ContractInfo", "name": "", "type": "tuple"}], "stateMutability": "view", "type": "function"}, {"inputs": [{"internalType": "string", "name": "_id", "type": "string"}], "name": "checkIfIdUnique", "outputs": [{"internalType": "bool", "name": "", "type": "bool"}], "stateMutability": "view", "type": "function"}, {"inputs": [{"internalType": "string", "name": "_id", "type": "string"}, {"internalType": "string", "name": "_name", "type": "string"}, {"internalType": "string", "name": "_description", "type": "string"}, {"internalType": "string", "name": "_websiteURL", "type": "string"}, {"internalType": "string", "name": "_thumbnailURL", "type": "string"}, {"internalType": "string", "name": "_email", "type": "string"}], "name": "createCauseContract", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "string", "name": "", "type": "string"}], "name": "deployedCauses", "outputs": [{"internalType": "contract CauseContract", "name": "", "type": "address"}], "stateMutability": "view", "type": "function"}, {"inputs": [{"internalType": "uint256", "name": "", "type": "uint256"}], "name": "ids", "outputs": [{"internalType": "string", "name": "", "type": "string"}], "stateMutability": "view", "type": "function"}], "factory_address": "0x2e0cDce7f2DA1F88d6d8C4b31cED3dB11e0D57f9", "contract_abi": [{"inputs": [{"internalType": "string", "name": "_id", "type": "string"}, {"internalType": "string", "name": "_name", "type": "string"}, {"internalType": "address payable", "name": "_admin", "type": "address"}, {"internalType": "string", "name": "_description", "type": "string"}, {"internalType": "string", "name": "_websiteURL", "type": "string"}, {"internalType": "string", "name": "_thumbnailURL", "type": "string"}, {"internalType": "string", "name": "_email", "type": "string"}], "stateMutability": "nonpayable", "type": "constructor"}, {"inputs": [{"internalType": "address", "name": "", "type": "address"}], "name": "addressDonated", "outputs": [{"internalType": "bool", "name": "", "type": "bool"}], "stateMutability": "view", "type": "function"}, {"inputs": [], "name": "authenticateAdmin", "outputs": [{"internalType": "bool", "name": "", "type": "bool"}], "stateMutability": "view", "type": "function"}, {"inputs": [], "name": "causeState", "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}], "stateMutability": "view", "type": "function"}, {"inputs": [], "name": "distributeFunds", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [], "name": "donate", "outputs": [], "stateMutability": "payable", "type": "function"}, {"inputs": [{"internalType": "address", "name": "", "type": "address"}], "name": "donorTotals", "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}], "stateMutability": "view", "type": "function"}, {"inputs": [], "name": "retrieveInfo", "outputs": [{"components": [{"internalType": "string", "name": "id", "type": "string"}, {"internalType": "string", "name": "name", "type": "string"}, {"internalType": "address", "name": "admin", "type": "address"}, {"components": [{"internalType": "address", "name": "sender", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "uint256", "name": "timestamp", "type": "uint256"}, {"internalType": "uint256", "name": "blockNumber", "type": "uint256"}, {"internalType": "uint256", "name": "gasUsed", "type": "uint256"}, {"internalType": "uint256", "name": "transactionFee", "type": "uint256"}], "internalType": "struct CauseContract.Transaction[]", "name": "incoming", "type": "tuple[]"}, {"components": [{"internalType": "address", "name": "sender", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "uint256", "name": "timestamp", "type": "uint256"}, {"internalType": "uint256", "name": "blockNumber", "type": "uint256"}, {"internalType": "uint256", "name": "gasUsed", "type": "uint256"}, {"internalType": "uint256", "name": "transactionFee", "type": "uint256"}], "internalType": "struct CauseContract.Transaction[]", "name": "outgoing", "type": "tuple[]"}, {"internalType": "address", "name": "contractAddress", "type": "address"}, {"internalType": "uint256", "name": "causeTotal", "type": "uint256"}, {"internalType": "uint256", "name": "causeState", "type": "uint256"}, {"internalType": "string", "name": "email", "type": "string"}, {"internalType": "string", "name": "description", "type": "string"}, {"internalType": "string", "name": "website", "type": "string"}, {"internalType": "string", "name": "thumbnail", "type": "string"}], "internalType": "struct CauseContract.ContractInfo", "name": "", "type": "tuple"}], "stateMutability": "view", "type": "function"}, {"inputs": [], "name": "toggleCauseState", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "address", "name": "_newAdmin", "type": "address"}], "name": "updateAdmin", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "uint256", "name": "_amount", "type": "uint256"}], "name": "withdraw", "outputs": [], "stateMutability": "payable", "type": "function"}, {"stateMutability": "payable", "type": "receive"}]}
+{
+  "factory_abi": [
+    {
+      "inputs": [],
+      "name": "cfRetrieveIds",
+      "outputs": [
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string[]",
+          "name": "_ids",
+          "type": "string[]"
+        }
+      ],
+      "name": "cfRetrieveInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "blockNumber",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct CauseContract.Transaction[]",
+              "name": "incoming",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "blockNumber",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct CauseContract.Transaction[]",
+              "name": "outgoing",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "address",
+              "name": "contractAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeTotal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeWithdrawalTotal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeState",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "website",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "thumbnail",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fundsDistributedFlag",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct CauseContract.ContractInfo[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_id",
+          "type": "string"
+        }
+      ],
+      "name": "checkIfIdUnique",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_id",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_websiteURL",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_thumbnailURL",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        }
+      ],
+      "name": "createCauseContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_id",
+          "type": "string"
+        }
+      ],
+      "name": "deleteCauseContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "deployedCauses",
+      "outputs": [
+        {
+          "internalType": "contract CauseContract",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "ids",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "factory_address": "0x167c75AFA03063aA11ECc086e8395FbD59d53c1D",
+  "contract_abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_id",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "address payable",
+          "name": "_admin",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_websiteURL",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_thumbnailURL",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "addressDonated",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "authenticateAdmin",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "causeState",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "distributeFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "donate",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "donorTotals",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAdmin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "retrieveInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "blockNumber",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct CauseContract.Transaction[]",
+              "name": "incoming",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "blockNumber",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct CauseContract.Transaction[]",
+              "name": "outgoing",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "address",
+              "name": "contractAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeTotal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeWithdrawalTotal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "causeState",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "website",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "thumbnail",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fundsDistributedFlag",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct CauseContract.ContractInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "setCauseStateInactive",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "toggleCauseState",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_newAdmin",
+          "type": "address"
+        }
+      ],
+      "name": "updateAdmin",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ]
+}
