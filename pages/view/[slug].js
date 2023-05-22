@@ -182,6 +182,7 @@ const CausePage = ({ slug }) => {
                   slug={slug}
                   setCauseState={setCauseState}
                   balance={cause.totalDonated - cause.totalWithdrawn}
+                  fundsDistributedFlag={cause.fundsDistributedFlag}
                 />
               ) : (
                 <></>
