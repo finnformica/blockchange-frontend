@@ -158,6 +158,9 @@ export const retrieveContractInfo = async (slugs) => {
     desc: cause["description"],
     website: cause["website"],
     image_url: cause["thumbnail"],
+    fundsDistributedFlag: parseInt(
+      cause["fundsDistributedFlag"]._hex
+    ).toString(),
   }));
 
   return causes;
