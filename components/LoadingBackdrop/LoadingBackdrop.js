@@ -16,6 +16,9 @@ export const LoadingBackdrop = ({ open, setOpen }) => {
         <Typography variant="body1" sx={{ ml: 2, p: 2, fontWeight: 500 }}>
           Sending request to the blockchain...
         </Typography>
+        <Typography variant="body1" sx={{ ml: 2, p: 2, fontWeight: 500 }}>
+          This may take a minute.
+        </Typography>
       </Backdrop>
     </div>
   );
