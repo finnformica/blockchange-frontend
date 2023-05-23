@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/router";
+
 import {
   Box,
   Container,
@@ -6,9 +10,6 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-
-import Image from "next/image";
-import { useRouter } from "next/router";
 
 import BigTitle from "../../components/Titles/BigTitle";
 import SmallTitle from "../../components/Titles/SmallTitle";
@@ -18,20 +19,18 @@ import AdminDrawer from "../../components/AdminDrawer/AdminDrawer";
 import CauseTrust from "../../components/CauseTrust/CauseTrust";
 import TransactTable from "../../components/TransactTable/TransactTable";
 import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
+import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 
-import contractInfo from "../../constants/contractInfo";
-import {
-  instantiateContractRPC,
-  donate,
-  retrieveContractInfo,
-} from "../../utils/utils";
+import { donate, retrieveContractInfo } from "../../utils/utils";
 
-const CausePage = ({ cause: causeInfo, slug }) => {
+const CausePage = ({ slug }) => {
   const router = useRouter();
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState("admin");
+  const [activeAccount, setActiveAccount] = useState("active");
   const [causeState, setCauseState] = useState(null);
   const [donation, setDonation] = useState(0);
-  const [cause, setCause] = useState(causeInfo);
+  const [cause, setCause] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -49,16 +48,31 @@ const CausePage = ({ cause: causeInfo, slug }) => {
         });
 
         if (accounts.length == 0) {
-          setAdmin(false);
           return;
         }
 
-        setAdmin(accounts[0].toLowerCase() == cause.admin.toLowerCase());
+        setActiveAccount(accounts[0].toLowerCase());
       };
+
+      retrieveContractInfo([slug])
+        .then((causes) => {
+          setCause(causes[0]);
+          setAdmin(causes[0].admin.toLowerCase());
+          setCauseState(causes[0].causeState);
+        })
+        .catch((e) => router.push("/404"));
 
       fetchAccounts().catch((e) => console.log(e));
 
       window.ethereum.on("accountsChanged", function (accounts) {
+        retrieveContractInfo([slug])
+          .then((causes) => {
+            setCause(causes[0]);
+            setAdmin(causes[0].admin.toLowerCase());
+            setCauseState(causes[0].causeState);
+          })
+          .catch((e) => router.push("/404"));
+
         fetchAccounts().catch((e) => console.log(e));
       });
     }
@@ -68,7 +82,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
         setCauseState(cause.causeState);
       }
     }
-  }, []);
+  }, [slug]);
 
   const handleDonate = async () => {
     const account = await window.ethereum.request({
@@ -106,6 +120,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
     }
 
     try {
+      setLoading(true);
       await donate(cause.address, donation);
 
       const res = await retrieveContractInfo([slug]);
@@ -125,16 +140,23 @@ const CausePage = ({ cause: causeInfo, slug }) => {
         title: "Donation failed",
         message: "The donation has failed. Please try again later.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   // display loading if page is not generated yet
-  if (router.isFallback) {
-    return <h1>Loading...</h1>;
+  if (router.isFallback || cause == null) {
+    return (
+      <Container maxWidth="lg">
+        <h1>Loading...</h1>
+      </Container>
+    );
   }
 
   return (
     <Container maxWidth="lg">
+      <LoadingBackdrop open={loading} setOpen={setLoading} />
       <FloatingAlert state={alertState} setState={setAlertState} />
       <Box
         sx={{
@@ -155,7 +177,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
                 cause={cause}
                 color={cause.causeState == 1 ? "#61EF61" : "#E10600"}
               />
-              {admin ? (
+              {admin == activeAccount ? (
                 <AdminDrawer
                   causeState={causeState}
                   setCause={setCause}
@@ -163,6 +185,7 @@ const CausePage = ({ cause: causeInfo, slug }) => {
                   slug={slug}
                   setCauseState={setCauseState}
                   balance={cause.totalDonated - cause.totalWithdrawn}
+                  fundsDistributedFlag={cause.fundsDistributedFlag}
                 />
               ) : (
                 <></>
@@ -292,45 +315,18 @@ const CausePage = ({ cause: causeInfo, slug }) => {
 };
 
 export const getStaticPaths = async () => {
-  const contract = instantiateContractRPC(
-    contractInfo.factory_address,
-    contractInfo.factory_abi
-  );
-
-  var paths;
-
-  try {
-    const res = await contract.functions.cfRetrieveIds();
-
-    paths = res[0].map((id) => ({
-      params: { slug: id },
-    }));
-  } catch (e) {
-    paths = [];
-    console.log(e);
-  }
-
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params }) => {
-  try {
-    const cause = await retrieveContractInfo([params.slug]);
-
-    return {
-      props: {
-        cause: cause[0],
-        slug: params.slug,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
+  return {
+    props: {
+      slug: params.slug,
+    },
+  };
 };
 
 export default CausePage;

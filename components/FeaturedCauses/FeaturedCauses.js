@@ -31,39 +31,45 @@ const FeaturedCauses = ({ featuredCausesInfo }) => {
         <BigTitle pt={2} pb={4}>
           See What Others Are Doing
         </BigTitle>
-        <Grid container spacing={4}>
-          {featuredCausesInfo?.map((cause) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={cause.id}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  backgroundColor: "transparent",
-                  border: "1px solid #3c487b",
-                  color: "#fff",
-                  borderRadius: 4,
-                }}
-              >
-                <Image
-                  src={cause.image_url}
-                  alt="Cause thumbnail"
-                  layout="responsive"
-                  width={300}
-                  height={180}
-                />
-                <Box sx={{ m: 2 }}>
-                  <Typography fontWeight={700}>{cause.title}</Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
-                    {cause.desc}
-                  </Typography>
-                  <PillButton variant="contained" href={`/view/${cause.id}`}>
-                    View
-                  </PillButton>
-                </Box>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        {featuredCausesInfo ? (
+          <Grid container spacing={4}>
+            {featuredCausesInfo?.map((cause) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={cause.id}>
+                <Card
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    backgroundColor: "transparent",
+                    border: "1px solid #3c487b",
+                    color: "#fff",
+                    borderRadius: 4,
+                  }}
+                >
+                  <Image
+                    src={cause.image_url}
+                    alt="Cause thumbnail"
+                    layout="responsive"
+                    width={300}
+                    height={180}
+                  />
+                  <Box sx={{ m: 2 }}>
+                    <Typography fontWeight={700}>{cause.title}</Typography>
+                    <Typography variant="body2" sx={{ mb: 2 }}>
+                      {cause.desc}
+                    </Typography>
+                    <PillButton variant="contained" href={`/view/${cause.id}`}>
+                      View
+                    </PillButton>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography>
+            Please connect to Metamask to view featured causes
+          </Typography>
+        )}
       </Box>
     </Container>
   );

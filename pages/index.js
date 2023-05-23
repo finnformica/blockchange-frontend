@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { Container } from "@mui/material";
 
 import Hero from "../components/Hero/Hero";
@@ -7,9 +9,30 @@ import CallToAction from "../components/CallToAction/CallToAction";
 
 import { retrieveContractInfo } from "../utils/utils";
 import { featuredCauses } from "../constants/constants";
-import { sampleCauses } from "../constants/sampleCauses";
 
-export default function Home({ causes }) {
+export default function Home() {
+  const [causes, setCauses] = useState(null);
+
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      retrieveContractInfo(featuredCauses)
+        .then((causes) => {
+          setCauses(causes);
+        })
+        .catch((e) => console.log(e));
+
+      window.ethereum.on("accountsChanged", function (accounts) {
+        retrieveContractInfo(featuredCauses)
+          .then((causes) => {
+            setCauses(causes);
+          })
+          .catch((e) => console.log(e));
+      });
+    } else {
+      console.log("Ethereum object not found");
+    }
+  }, []);
+
   return (
     <Container maxWidth="lg">
       <Hero />
@@ -19,22 +42,3 @@ export default function Home({ causes }) {
     </Container>
   );
 }
-
-export const getStaticProps = async () => {
-  try {
-    const causes = await retrieveContractInfo(featuredCauses);
-
-    return {
-      props: {
-        causes,
-      },
-    };
-  } catch (e) {
-    console.log(e);
-    return {
-      props: {
-        causes: sampleCauses,
-      },
-    };
-  }
-};

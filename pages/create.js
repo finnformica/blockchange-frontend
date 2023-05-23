@@ -39,52 +39,54 @@ const Create = () => {
         title: "No account found",
         message: "Please connect your wallet to create a cause.",
       });
-    } else {
-      const unique = await checkIfIdUnique(
-        formState.title.toLowerCase().replaceAll(" ", "-")
-      );
+      return;
+    }
 
-      if (unique) {
-        try {
-          setLoading(true);
-          const tx_receipt = await create(formState);
+    const unique = await checkIfIdUnique(
+      formState.title.toLowerCase().replaceAll(" ", "-")
+    );
 
-          if (tx_receipt?.status == 1) {
-            setAlertState({
-              open: true,
-              severity: "success",
-              title: "Deployment complete!",
-              message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
-              href: `/view/${formState.id}`,
-            });
+    if (!unique) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Name taken",
+        message: "This name is no longer available - please choose another.",
+      });
+      return;
+    }
 
-            setFormState({
-              title: "",
-              id: "",
-              description: "",
-              thumbnailURL: "",
-              websiteURL: "",
-              contactEmail: "",
-            });
-          }
-        } catch (e) {
-          setAlertState({
-            open: true,
-            severity: "error",
-            title: "Deployment failed",
-            message: "The cause could not be deployed to the blockchain.",
-          });
-        } finally {
-          setLoading(false);
-        }
-      } else {
+    try {
+      setLoading(true);
+      const tx_receipt = await create(formState);
+
+      if (tx_receipt?.status == 1) {
         setAlertState({
           open: true,
-          severity: "error",
-          title: "Name taken",
-          message: "This name is no longer available - please choose another.",
+          severity: "success",
+          title: "Deployment complete!",
+          message: `The cause has been successfully deployed to the blockchain.\nView using the id: ${formState.id}`,
+          href: `/view/${formState.id}`,
+        });
+
+        setFormState({
+          title: "",
+          id: "",
+          description: "",
+          thumbnailURL: "",
+          websiteURL: "",
+          contactEmail: "",
         });
       }
+    } catch (e) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Deployment failed",
+        message: "The cause could not be deployed to the blockchain.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 

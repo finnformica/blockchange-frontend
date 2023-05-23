@@ -23,6 +23,7 @@ import {
 } from "../../utils/utils";
 
 import FloatingAlert from "../../components/FloatingAlert/FloatingAlert";
+import LoadingBackdrop from "../LoadingBackdrop/LoadingBackdrop";
 
 const AdminDrawer = ({
   causeState,
@@ -31,11 +32,13 @@ const AdminDrawer = ({
   address,
   setCause,
   slug,
+  fundsDistributedFlag,
 }) => {
   const router = useRouter();
   const [adminDrawerState, setAdminDrawerState] = useState(false);
   const [withdrawValue, setWithdrawValue] = useState(0);
   const [adminAddress, setAdminAddress] = useState("0x00");
+  const [loading, setLoading] = useState(false);
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -66,14 +69,30 @@ const AdminDrawer = ({
 
   const handleToggleState = async () => {
     try {
+      setLoading(true);
       await toggleCauseState(address);
 
       setCauseState(causeState == 2 ? 1 : 2);
 
       const res = await retrieveContractInfo([slug]);
       setCause(res[0]);
+
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "State change complete!",
+        message: "The state change has been successfully completed.",
+      });
     } catch (error) {
       console.log(error);
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "State change failed",
+        message: "The state change has failed. Please try again later.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,74 +104,95 @@ const AdminDrawer = ({
         title: "Invalid amount",
         message: "Amount must be greater than zero",
       });
-    } else if (withdrawValue > balance) {
+      return;
+    }
+    if (withdrawValue > balance) {
       setAlertState({
         open: true,
         severity: "error",
         title: "Invalid amount",
         message: "Amount must be less than the current balance",
       });
-    } else {
-      try {
-        await withdrawFunds(address, withdrawValue);
+      return;
+    }
 
-        const res = await retrieveContractInfo([slug]);
-        setCause(res[0]);
+    try {
+      setLoading(true);
+      await withdrawFunds(address, withdrawValue);
 
-        setAlertState({
-          open: true,
-          severity: "success",
-          title: "Withdrawal complete!",
-          message: "The withdrawal has been successfully completed.",
-        });
+      const res = await retrieveContractInfo([slug]);
+      setCause(res[0]);
 
-        setWithdrawValue(0);
-      } catch (error) {
-        console.log(error);
-        setAlertState({
-          open: true,
-          severity: "error",
-          title: "Withdrawal failed",
-          message: "The withdrawal has failed. Please try again later.",
-        });
-      }
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "Withdrawal complete!",
+        message: "The withdrawal has been successfully completed.",
+      });
+
+      setWithdrawValue(0);
+    } catch (error) {
+      console.log(error);
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Withdrawal failed",
+        message: "The withdrawal has failed. Please try again later.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUpdateAdmin = async () => {
-    if (adminAddress.length == 42) {
-      try {
-        await updateAdmin(address, adminAddress);
-        setAlertState({
-          open: true,
-          severity: "success",
-          title: "Update complete!",
-          message: "The update has been successfully completed.",
-        });
-        setAdminAddress("0x00");
-
-        const res = await retrieveContractInfo([slug]);
-        setCause(res[0]);
-      } catch (error) {
-        setAlertState({
-          open: true,
-          severity: "error",
-          title: "Update failed",
-          message: "The update has failed. Please try again later.",
-        });
-      }
-    } else {
+    if (adminAddress.length !== 42) {
       setAlertState({
         open: true,
         severity: "error",
         title: "Invalid address",
         message: "Please enter a valid address",
       });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await updateAdmin(address, adminAddress);
+      setAlertState({
+        open: true,
+        severity: "success",
+        title: "Update complete!",
+        message: "The update has been successfully completed.",
+      });
+      setAdminAddress("0x00");
+
+      const res = await retrieveContractInfo([slug]);
+      setCause(res[0]);
+    } catch (error) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Update failed",
+        message: "The update has failed. Please try again later.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleRedistribute = async () => {
+    if (fundsDistributedFlag != 1) {
+      setAlertState({
+        open: true,
+        severity: "error",
+        title: "Cannot redistribute funds",
+        message: "Funds have already been redistributed once before.",
+      });
+      return;
+    }
+
     try {
+      setLoading(true);
       await redistributeFunds(address);
 
       const res = await retrieveContractInfo([slug]);
@@ -172,11 +212,14 @@ const AdminDrawer = ({
         title: "Redistribution failed",
         message: "The redistribution has failed. Please try again later.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDelete = async () => {
     try {
+      setLoading(true);
       await deleteCause(slug);
 
       setAlertState({
@@ -195,11 +238,14 @@ const AdminDrawer = ({
         title: "Deletion failed",
         message: "The deletion has failed. Please try again later.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const content = () => (
     <Box sx={{ width: 300 }} role="presentation">
+      <LoadingBackdrop open={loading} setOpen={setLoading} />
       <FloatingAlert state={alertState} setState={setAlertState} />
       <List>
         <ListItem key={1}>
