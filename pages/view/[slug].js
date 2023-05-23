@@ -68,6 +68,7 @@ const CausePage = ({ slug }) => {
           .then((causes) => {
             setCause(causes[0]);
             setAdmin(causes[0].admin.toLowerCase());
+            setCauseState(causes[0].causeState);
           })
           .catch((e) => router.push("/404"));
 
