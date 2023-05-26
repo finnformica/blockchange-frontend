@@ -2,6 +2,8 @@
 
 The front-end repo for BlockChange - a distributed crowdfunding application for humanitarian causes. Built using Next.js and MUI and interfaces with Solidity smart contracts deployed to the Ethereum test net.
 
+[Link](https://github.com/finnformica/blockchange-backend/) to BlockChange back-end.
+
 ## Dependencies
 - npm 8+
 - Node.js 16+
